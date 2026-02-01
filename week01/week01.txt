@@ -1,0 +1,15 @@
+4. add members to git repository - nan  ||   done
+15. รวบรวมข้อมูลสายพันธุ์แมว - เก็บข้อมูลราคา นิสัย และอาหาร  ||   doing
+16. แยกแมว Unknown - แยกกรณีที่โมเดลไม่มั่นใจ  ||   todo
+18. ทดสอบโมเดล - ตรวจสอบความแม่นยำของโมเดล  ||   todo
+19. Train โมเดล - ฝึกโมเดลด้วยชุดข้อมูลที่เตรียมไว้  ||   todo
+20. เลือกโมเดล AI - เลือกโมเดลสำหรับจำแนกและนับแมว  ||   todo
+21. Dataset engineer - ตรวจสอบ class สายพันธุ์แมว และแบ่งข้อมูลสำหรับฝึกและทดสอบ  ||   doing
+22. หาข้อมูลชุดฝึกแมว (Roboflow Cat Dataset) - หาชุดข้อมูลเอาไว้ใช้ฝึกโมเดล  ||   done
+23. สร้าง Git Repository - ใช้เก็บโค้ดและจัดการเวอร์ชัน  ||   done
+33. HTML แสดง preview รูปก่อนอัปโหลด - nan  ||   todo
+36. ทำหน้า MeowDex - สร้างและออกแบบหน้า MeowDex (HTML),(CSS)  ||   done
+37. ทำหน้า Search - สร้างและออกแบบหน้า Search (HTML),(CSS)  ||   done
+38. ทำหน้า Predict - สร้างและออกแบบหน้า Predict (HTML),(CSS)  ||   done
+41. ทำหน้า Register - สร้างและออกแบบหน้า Register (HTML),(CSS)  ||   done
+42. ทำหน้า Login - สร้างและออกแบบหน้า Login (HTML),(CSS)  ||   done
