@@ -1,0 +1,110 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.body {
+    margin: 0;
+    background-color: #ffffff;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 40px;
+    border-bottom: 1px solid #ccc;
+}
+
+.select {
+    color: #1d4ed8;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.input-search {
+    width: 450px;
+    height: 40px;
+}
+
+.font-size{
+    font-size: 23px;
+}
+
+/* กลุ่มการ์ด */
+.cat-list {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    background-attachment: fixed;
+    background-color: #b3b3b3;
+    border-radius: 12px;
+}
+
+/* การ์ดแต่ละใบ */
+.cat-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #9b6b4f;
+    color: white;
+
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    overflow: hidden;
+}
+
+/* ฝั่งข้อความ */
+.cat-info {
+    width: 65%;
+}
+
+.cat-info h3 {
+    margin-top: 0;
+}
+
+.cat-info p {
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.6;
+}
+
+.cat-info hr {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.5);
+    margin: 10px 0;
+}
+
+.cat-info small {
+    font-size: 12px;
+}
+
+/* ฝั่งรูป */
+.cat-image-box {
+    width: 300px;
+    height: 160px;
+    background-color: white;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.cat-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
