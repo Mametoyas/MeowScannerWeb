@@ -1,0 +1,1 @@
+ทำแบบ Two-Stage โดย Object Detection จะใช้ EfficientDet และ Classification Models จะใช้ Vision Transformer (ViT)
