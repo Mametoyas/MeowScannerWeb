@@ -8,99 +8,123 @@ body {
     background-color: #ffffff;
 }
 
-/* ===== NAVBAR ===== */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 23px 40px;
+    padding: 1.5rem 2.5rem;
     border-bottom: 1px solid #ccc;
 }
 
 .logo {
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: bold;
 }
 
 .nav-links a {
-    margin-left: 20px;
+    margin-left: 1.25rem;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 1rem;
 }
 
-.login-link {
-    color: #1d4ed8;
-}
+.login-link { color: #1d4ed8; }
+.register-link { color: #000; }
 
-.register-link {
-    color: #000;
-}
-
-/* ===== MAIN CONTENT ===== */
 .container {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 180px;
+    min-height: calc(100vh - 80px);
+    padding: 2rem;
+    gap: 3rem;
 }
 
 .cat-image {
-    width: 350px;
-    height: 350px;
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
+    width: 18rem;
+    max-width: 40%;
 }
 
 .login-box {
-    width: 500px;
+    width: 100%;
+    max-width: 32rem;
 }
 
 .login-box h1 {
     text-align: center;
-    margin-bottom: 30px;
-    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    letter-spacing: 0.2rem;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
 }
 
 .form-group label {
     display: block;
-    font-size: 14px;
-    margin-bottom: 5px;
+    font-size: 0.875rem;
+    margin-bottom: 0.3rem;
 }
 
-.form-group input[type="text"],
-.form-group input[type="password"] {
+.form-group input {
     width: 100%;
-    padding: 8px;
+    padding: 0.6rem;
     border: 1px solid #ccc;
+    font-size: 1rem;
 }
 
 .options {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    font-size: 12px;
-    margin-top: 10px;
+    align-items: center;
+    font-size: 0.75rem;
+    margin-top: 1rem;
 }
 
 .options a {
     text-decoration: none;
     color: #2563eb;
+    margin-right: 0.5rem;
 }
 
 .login-btn {
     background-color: #dc2626;
     color: white;
     border: none;
-    padding: 6px 12px;
+    padding: 0.4rem 0.9rem;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 0.75rem;
 }
 
 .login-btn:hover {
     background-color: #b91c1c;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem;
+    }
+
+    .nav-links a {
+        font-size: 0.9rem;
+        margin-left: 0.8rem;
+    }
+
+    .container {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .cat-image {
+        display: none;
+    }
+
+    .login-box h1 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .cat-image {
+        width: 14rem;
+    }
 }
