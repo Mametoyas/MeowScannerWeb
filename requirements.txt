@@ -1,0 +1,7 @@
+torch 
+torchvision 
+opencv-python 
+transformers 
+timm 
+effdet 
+pillow
