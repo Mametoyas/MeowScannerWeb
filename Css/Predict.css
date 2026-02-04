@@ -105,18 +105,13 @@ body {
         align-items: stretch;
     }
 
-    .main-layout {
+    .cat-card {
         flex-direction: column;
-        gap: 1.5rem;
+        align-items: stretch;
     }
 
-    .gray-box {
+    .cat-image-box {
         width: 100%;
-    }
-
-    .result-box {
-        width: 100%;
-        max-width: 100%;
     }
 
     .input-search {
@@ -126,15 +121,11 @@ body {
 
 @media (max-width: 1024px) {
 
-    .main-layout {
-        gap: 2rem;
-    }
-
-    .gray-box {
+    .cat-list {
         max-width: 100%;
     }
 
-    .result-box {
-        max-width: 100%;
+    .cat-image-box {
+        width: 14rem;
     }
 }
