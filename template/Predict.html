@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meow Scanner - Predict</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="/Css/Predict.css">
+
+    <style>
+        /* --- 2. ใส่ CSS แก้บั๊กและกำหนดขนาดกล่องตรงนี้ --- */
+        
+        /* แก้บั๊กรูปแผนที่แตก (สำคัญมาก) */
+        .leaflet-pane img, 
+        .leaflet-tile-container img {
+            max-width: none !important;
+            max-height: none !important;
+            box-shadow: none !important;
+        }
+
+        /* กำหนดขนาดกล่องแผนที่ */
+        #map {
+            width: 100%;       /* กว้างเต็มพื้นที่ */
+            height: 300px;     /* สูง 300px (เปลี่ยนเลขได้) */
+            border-radius: 10px; /* มุมโค้ง */
+            border: 2px solid #ddd; /* เพิ่มเส้นขอบให้เห็นชัดขึ้น */
+            margin-top: 10px;  /* เว้นระยะห่างจากตัวหนังสือข้างบน */
+            z-index: 1;        /* ให้แน่ใจว่าปุ่มกดแผนที่ทำงานได้ */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo"><img src="/images/logo.png" alt="Logo"></div>
+        <div class="nav-links">
+            <input type="text" class="input-search">
+            <label class="select font-size">ค้นหาประเภทแมว</label>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-layout">
+            <div class="gray-box">
+                <img src="/images/cat_com.png" class="cat-center">
+            </div>
+
+            <div class="result-box">
+                <h2>ผลลัพธ์การทำนาย</h2>
+                <p class="font-size">ประเภทแมว: </p>
+                <p class="font-size">พันธ์แมว: </p>
+                <p class="font-size">จุดเด่น: </p>
+                <p class="font-size">ค่าความมั่นใจ: </p>   
+                <div id="map"></div>
+            </div>
+        </div>
+
+
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+        <script>
+            // สร้างแผนที่
+            var map = L.map('map').setView([13.7563, 100.5018], 15); // พิกัดเริ่มต้น
+
+            // ใส่ลายแผนที่
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
+
+            // ปักหมุด
+            L.marker([16.560297972222223, 102.9512273888889]).addTo(map)
+                .bindPopup("แมวเหมียวอยู่ตรงนี้")
+                .openPopup();
+        </script>
+</body>
+</html>
