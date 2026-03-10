@@ -1,3 +1,4 @@
+/* --- ส่วน CSS เดิมของคุณ --- */
 * {
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
@@ -49,83 +50,120 @@ body {
 
 /* คอนเทนเนอร์หลัก จัดกึ่งกลางหน้าจอ 100% */
 .quiz-container {
-  display: flex;
-  justify-content: center; /* จัดกึ่งกลางซ้าย-ขวา */
-  align-items: center;     /* 👈 เปลี่ยนตรงนี้เป็น center เพื่อจัดกึ่งกลางบน-ล่าง */
-  min-height: calc(100vh - 80px); /* ความสูงของจอ ลบด้วยความสูงของ Navbar */
-  padding: 3rem 2rem;
-  width: 100%;
-  background-color: #ffffff;
+    display: flex;
+    justify-content: center; /* จัดกึ่งกลางซ้าย-ขวา */
+    align-items: center;     /* จัดกึ่งกลางบน-ล่าง */
+    min-height: calc(100vh - 80px); /* ความสูงของจอ ลบด้วยความสูงของ Navbar */
+    padding: 3rem 2rem;
+    width: 100%;
+    background-color: #ffffff;
 }
 
-/* กล่องจำกัดความกว้างของเนื้อหา */
+/* กล่องจำกัดความกว้างของเนื้อหา - ปรับปรุงความกว้างเพื่อให้พอดีกับรูปและฟอร์ม */
 .quiz-layout {
-  width: 100%;
-  max-width: 650px;
-  display: flex;
-  flex-direction: column;
+    width: 100%;
+    max-width: 90rem; /* ทำให้กว้างขึ้นเพื่อให้พอดีกับรูปและฟอร์มด้านข้าง */
+    display: flex;
+    flex-direction: column;
 }
 
-/* ------------------------------------- */
-/* ส่วนอื่นๆ ด้านล่างใช้โค้ดเดิมได้เลยครับ */
+/* --- ส่วนที่เพิ่ม/ปรับปรุงใหม่ --- */
 
+/* ส่วนจัดหน้าใหม่: รูปแมวด้านซ้าย ฟอร์มด้านขวา */
+.quiz-content-wrapper {
+    display: flex;
+    flex-direction: row; /* จัดแนวนอน */
+    align-items: flex-start; /* เพื่อให้รูปภาพอยู่ที่ด้านบนสุดเสมอ */
+    gap: 3rem; /* ระยะห่างระหว่างรูปและฟอร์ม */
+    width: 100%;
+}
+
+/* จัดกลุ่มคอลัมน์ซ้าย (รูปภาพ) */
+.quiz-image-col {
+    flex: 0 0 30%; /* ไม่ยืด ไม่หด ใช้พื้นที่ 30% */
+    display: flex;
+    justify-content: center;
+    background-color: bisque;
+}
+
+/* จัดกลุ่มคอลัมน์ขวา (ฟอร์มและหัวข้อ) */
+.quiz-form-col {
+    flex: 1; /* ใช้พื้นที่ที่เหลือ */
+    display: flex;
+    flex-direction: column;
+}
+
+/* ปรับปรุง CSS ของรูปภาพแมว */
+.cat-image {
+    width: 100%; /* ให้เต็มคอลัมน์ด้านซ้าย */
+    height: auto;
+    margin-bottom: 0; /* ลบระยะห่างด้านล่างที่เคยมีในแนวดิ่ง */
+}
+
+/* ปรับปรุง CSS ของหัวข้อ */
+.quiz-form-col h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-top: 0; /* เพื่อให้ชิดกับด้านบนสุดของรูปภาพ */
+    margin-bottom: 2rem; /* ปรับลดระยะห่างจากเดิม 4.5rem */
+    color: #000;
+}
+
+/* --- ส่วน CSS เดิมของคุณ (ต่อ) --- */
 .search-bar-top {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 2rem;
 }
 
 .search-bar-top input {
-  width: 250px;
-  height: 32px;
-  padding: 0 10px;
-  border: 1px solid #767676;
-  font-size: 1rem;
-}
-
-.quiz-layout h1 {
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-  color: #000;
-  margin: 3.2rem;
+    width: 250px;
+    height: 32px;
+    padding: 0 10px;
+    border: 1px solid #767676;
+    font-size: 1rem;
 }
 
 .question-group {
-  margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 2.7rem;
 }
 
 .question-group p {
-  font-size: 1.1rem;
-  margin-bottom: 0.8rem;
-  color: #000;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    color: #000;
 }
 
 .radio-options {
-  display: flex;
-  gap: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
 }
 
 .radio-options label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  color: #000;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #000;
 }
 
+/* ปรับปรุง CSS ของปุ่มเพื่อให้อยู่ตรงกลางของเนื้อหาด้านขวา */
 .submit-btn {
-  padding: 8px 16px;
-  background-color: #f0f0f0;
-  border: 1px solid #767676;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 1rem;
-  width: fit-content;
+    padding: 8px 16px;
+    background-color: #f0f0f0;
+    border: 1px solid #767676;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 3rem;
+    width: fit-content;
+    color: #000;
+    margin-left: auto; /* ปรับให้อยู่ตรงกลางของเนื้อหาฟอร์มด้านขวา */
+    margin-right: auto; /* ปรับให้อยู่ตรงกลางของเนื้อหาฟอร์มด้านขวา */
 }
 
 .submit-btn:hover {
-  background-color: #e0e0e0;
+    background-color: #e0e0e0;
 }
