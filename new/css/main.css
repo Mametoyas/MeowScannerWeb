@@ -1,0 +1,232 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 14px;
+}
+.v179_3 {
+  width: 100%;
+  height: 1080px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.name {
+  color: #fff;
+}
+.v179_5 {
+  width: 98px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 18px;
+  left: 39px;
+  font-family: Itim;
+  font-weight: Regular;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v179_6 {
+  width: 608px;
+  height: 48px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: absolute;
+  top: 24px;
+  left: 1070px;
+  border: 1px solid rgba(127,125,125,0.3400000035762787);
+  overflow: hidden;
+}
+.v179_7 {
+  width: 223px;
+  color: rgba(0,91,182,1);
+  position: absolute;
+  top: 24px;
+  left: 1687px;
+  font-family: Itim;
+  font-weight: Regular;
+  font-size: 32px;
+  opacity: 1;
+  text-align: left;
+}
+.v180_24 {
+  width: 408px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 235px;
+  left: 225px;
+  font-family: Itim;
+  font-weight: Regular;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v180_43 {
+  width: 521px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 154px;
+  left: 669px;
+  font-family: Itim;
+  font-weight: Regular;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v180_30 {
+  width: 190px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 337px;
+  left: 324px;
+  font-family: Itim;
+  font-weight: Regular;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v180_31 {
+  width: 134px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 337px;
+  left: 669px;
+  font-family: Itim;
+  font-weight: Regular;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v180_32 {
+  width: 212px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 337px;
+  left: 958px;
+  font-family: Itim;
+  font-weight: Regular;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v180_33 {
+  width: 611px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 439px;
+  left: 225px;
+  font-family: Itim;
+  font-weight: Regular;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v180_34 {
+  width: 166px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 541px;
+  left: 324px;
+  font-family: Itim;
+  font-weight: Regular;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v180_35 {
+  width: 220px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 541px;
+  left: 669px;
+  font-family: Itim;
+  font-weight: Regular;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v180_36 {
+  width: 153px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 541px;
+  left: 958px;
+  font-family: Itim;
+  font-weight: Regular;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v180_38 {
+  width: 894px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 643px;
+  left: 225px;
+  font-family: Itim;
+  font-weight: Regular;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v180_39 {
+  width: 133px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 745px;
+  left: 324px;
+  font-family: Itim;
+  font-weight: Regular;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v180_40 {
+  width: 114px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 745px;
+  left: 669px;
+  font-family: Itim;
+  font-weight: Regular;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v180_41 {
+  width: 208px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 745px;
+  left: 958px;
+  font-family: Itim;
+  font-weight: Regular;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v180_45 {
+  width: 531px;
+  height: 90px;
+  background: rgba(217,217,217,1);
+  opacity: 1;
+  position: absolute;
+  top: 940px;
+  left: 1344px;
+  overflow: hidden;
+}
+.v180_46 {
+  width: 461px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 953px;
+  left: 1393px;
+  font-family: Itim;
+  font-weight: Regular;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}

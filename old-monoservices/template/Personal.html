@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meow Scanner - Cat Finder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Itim&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/Css/Predict.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo"><img src="../images/LOGO.png" alt="Logo"></div>
+        <div class="nav-links">
+            <input type="text" class="input-search">
+            <label class="select font-size">ค้นหาประเภทแมว</label>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-layout">
+            <div class="content-section">
+                <div class="result-box">
+                    <h2>คุณเหมาะกับแมวแบบไหน ?</h2>
+                    
+                    <div class="question-group">
+                        <p class="font-size">คุณอาศัยอยู่ที่ไหน</p>
+                        <label><input type="radio" name="location" value="A"> A. คอนโด</label>
+                        <label><input type="radio" name="location" value="B"> B. บ้าน</label>
+                        <label><input type="radio" name="location" value="C"> C. บ้านสวน</label>
+                    </div>
+
+                    <div class="question-group">
+                        <p class="font-size">โดยปกติคุณมีเวลาว่างหรือไม่</p>
+                        <label><input type="radio" name="time" value="A"> A. มีเวลา</label>
+                        <label><input type="radio" name="time" value="B"> B. เวลาน้อย</label>
+                        <label><input type="radio" name="time" value="C"> C. WFH</label>
+                    </div>
+
+                    <div class="question-group">
+                        <p class="font-size">คุณอยากเห็นเจ้าเหมียวมีลักษณะนิสัยอย่างไร</p>
+                        <label><input type="radio" name="personality" value="A"> A. นิ่งๆ</label>
+                        <label><input type="radio" name="personality" value="B"> B. ซน</label>
+                        <label><input type="radio" name="personality" value="C"> C. ติดหนึบ</label>
+                    </div>
+
+                    <button class="search-button" onclick="submitAnswers()">
+                        <p class="font-size">ค้นหาแมวที่เหมาะกับคุณ</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function submitAnswers() {
+            const location = document.querySelector('input[name="location"]:checked')?.value;
+            const time = document.querySelector('input[name="time"]:checked')?.value;
+            const personality = document.querySelector('input[name="personality"]:checked')?.value;
+            
+            if (!location || !time || !personality) {
+                alert('กรุณาเลือกคำตอบให้ครบทุกข้อ');
+                return;
+            }
+            
+            const answers = {
+                location: location,
+                time: time,
+                personality: personality
+            };
+            
+            fetch('/cat-recommendation', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(answers)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert('ผลลัพธ์: ' + JSON.stringify(data));
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
