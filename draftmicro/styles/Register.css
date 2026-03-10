@@ -60,6 +60,7 @@ body {
     text-align: center;
     margin-bottom: 2rem;
     letter-spacing: 0.2rem;
+    color: #000;
 }
 
 
@@ -71,6 +72,7 @@ body {
     display: block;
     font-size: 0.875rem;
     margin-bottom: 0.3rem;
+    color: #000;
 }
 
 .form-group input {
@@ -88,6 +90,10 @@ body {
     margin-top: 1rem;
 }
 
+.options label {
+    color: #000;
+}
+
 .confirmed-btn {
     background-color: #dc2626;
     color: white;
@@ -95,7 +101,7 @@ body {
     padding: 0.4rem 0.9rem;
     cursor: pointer;
     font-size: 0.75rem;
-    margin-left: 26.8rem;
+    /* margin-left: 26.8rem; */
 }
 
 .confirmed-btn:hover {

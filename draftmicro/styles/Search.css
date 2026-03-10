@@ -38,19 +38,29 @@ body {
     height: 2.5rem;
     padding: 0 0.75rem;
     border-radius: 1rem;
+    color: #000;
+    border: 1px solid #000000;
 }
 
+.search-btn {
+    font-size: 0.90rem;
+    color: #000;
+}
 
-.container {
+.search-container {
     display: flex;
-    justify-content: center;
-    padding: 1.5rem;
+    justify-content: center; 
+    align-items: flex-start;
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    padding: 3rem 1.5rem;
 }
 
 
 .cat-list {
     width: 100%;
     max-width: 56rem;
+    margin: 0 auto;
     padding: 1.25rem;
     background-color: #b3b3b3;
     border-radius: 0.75rem;

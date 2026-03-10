@@ -60,6 +60,7 @@ body {
     text-align: center;
     margin-bottom: 2rem;
     letter-spacing: 0.2rem;
+    color: #000;
 }
 
 .form-group {
@@ -70,6 +71,7 @@ body {
     display: block;
     font-size: 0.875rem;
     margin-bottom: 0.3rem;
+    color: #000;
 }
 
 .form-group input {
@@ -85,6 +87,7 @@ body {
     align-items: center;
     font-size: 0.75rem;
     margin-top: 1rem;
+    color: #000;
 }
 
 .options a {
