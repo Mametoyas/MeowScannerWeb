@@ -4,3 +4,4 @@ flask_cors
 torch 
 torchvision
 opencv-python
+pillow-heif
