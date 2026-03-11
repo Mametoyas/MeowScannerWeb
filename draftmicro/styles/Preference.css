@@ -1,4 +1,3 @@
-/* --- ส่วน CSS เดิมของคุณ --- */
 * {
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
@@ -48,97 +47,96 @@ body {
     color: #000;
 }
 
-/* คอนเทนเนอร์หลัก จัดกึ่งกลางหน้าจอ 100% */
 .quiz-container {
     display: flex;
-    justify-content: center; /* จัดกึ่งกลางซ้าย-ขวา */
-    align-items: center;     /* จัดกึ่งกลางบน-ล่าง */
-    min-height: calc(100vh - 80px); /* ความสูงของจอ ลบด้วยความสูงของ Navbar */
-    padding: 3rem 2rem;
+    justify-content: center;
+    align-items: flex-start;
     width: 100%;
-    background-color: #ffffff;
+    min-height: calc(100vh - 80px);
+    padding: 3rem 1.5rem;
 }
 
-/* กล่องจำกัดความกว้างของเนื้อหา - ปรับปรุงความกว้างเพื่อให้พอดีกับรูปและฟอร์ม */
 .quiz-layout {
     width: 100%;
-    max-width: 90rem; /* ทำให้กว้างขึ้นเพื่อให้พอดีกับรูปและฟอร์มด้านข้าง */
-    display: flex;
-    flex-direction: column;
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 1.25rem;
+    background-color: #b3b3b3;
+    border-radius: 0.75rem;
 }
 
-/* --- ส่วนที่เพิ่ม/ปรับปรุงใหม่ --- */
-
-/* ส่วนจัดหน้าใหม่: รูปแมวด้านซ้าย ฟอร์มด้านขวา */
 .quiz-content-wrapper {
     display: flex;
-    flex-direction: row; /* จัดแนวนอน */
-    align-items: flex-start; /* เพื่อให้รูปภาพอยู่ที่ด้านบนสุดเสมอ */
-    gap: 3rem; /* ระยะห่างระหว่างรูปและฟอร์ม */
-    width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.25rem;
+    background-color: #9b6b4f;
+    color: white;
+    border-radius: 0.75rem;
+    padding: 1.25rem;
 }
 
-/* จัดกลุ่มคอลัมน์ซ้าย (รูปภาพ) */
 .quiz-image-col {
-    flex: 0 0 30%; /* ไม่ยืด ไม่หด ใช้พื้นที่ 30% */
+    flex: 0 0 35%;
     display: flex;
+    align-items: center;
     justify-content: center;
-    background-color: bisque;
+    padding: 1rem;
 }
 
-/* จัดกลุ่มคอลัมน์ขวา (ฟอร์มและหัวข้อ) */
 .quiz-form-col {
-    flex: 1; /* ใช้พื้นที่ที่เหลือ */
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
 
-/* ปรับปรุง CSS ของรูปภาพแมว */
 .cat-image {
-    width: 100%; /* ให้เต็มคอลัมน์ด้านซ้าย */
+    width: 100%;
+    max-width: 280px;
     height: auto;
-    margin-bottom: 0; /* ลบระยะห่างด้านล่างที่เคยมีในแนวดิ่ง */
+    border-radius: 0.4rem;
+    background-color: white;
+    padding: 0.5rem;
 }
 
-/* ปรับปรุง CSS ของหัวข้อ */
+.cat-image-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 0.4rem;
+    overflow: hidden;
+}
+
 .quiz-form-col h1 {
     font-size: 1.8rem;
     font-weight: bold;
-    margin-top: 0; /* เพื่อให้ชิดกับด้านบนสุดของรูปภาพ */
-    margin-bottom: 2rem; /* ปรับลดระยะห่างจากเดิม 4.5rem */
-    color: #000;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    color: white;
+    text-align: center;
 }
 
 /* --- ส่วน CSS เดิมของคุณ (ต่อ) --- */
-.search-bar-top {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 2rem;
-}
 
-.search-bar-top input {
-    width: 250px;
-    height: 32px;
-    padding: 0 10px;
-    border: 1px solid #767676;
-    font-size: 1rem;
-}
 
 .question-group {
     margin-bottom: 1.5rem;
-    padding: 2.7rem;
+    padding: 1.5rem;
 }
 
 .question-group p {
     font-size: 1.1rem;
     margin-bottom: 0.8rem;
-    color: #000;
+    color: white;
+    font-weight: bold;
 }
 
 .radio-options {
     display: flex;
     gap: 1.5rem;
+    flex-wrap: wrap;
 }
 
 .radio-options label {
@@ -147,23 +145,80 @@ body {
     gap: 5px;
     cursor: pointer;
     font-size: 1rem;
-    color: #000;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease;
 }
 
-/* ปรับปรุง CSS ของปุ่มเพื่อให้อยู่ตรงกลางของเนื้อหาด้านขวา */
+.radio-options label:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.radio-options input[type="radio"] {
+    width: 16px;
+    height: 16px;
+}
+
 .submit-btn {
-    padding: 8px 16px;
+    padding: 12px 24px;
     background-color: #f0f0f0;
     border: 1px solid #767676;
+    border-radius: 0.25rem;
     font-size: 1rem;
     cursor: pointer;
-    margin-top: 3rem;
-    width: fit-content;
+    margin-top: 2rem;
     color: #000;
-    margin-left: auto; /* ปรับให้อยู่ตรงกลางของเนื้อหาฟอร์มด้านขวา */
-    margin-right: auto; /* ปรับให้อยู่ตรงกลางของเนื้อหาฟอร์มด้านขวา */
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    transition: background-color 0.2s ease;
 }
 
 .submit-btn:hover {
     background-color: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+        gap: 0.8rem;
+    }
+
+    .nav-links {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .quiz-content-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .quiz-image-col {
+        flex: none;
+        width: 100%;
+    }
+
+    .input-search {
+        width: 100%;
+    }
+
+    .radio-options {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .quiz-layout {
+        max-width: 100%;
+    }
+
+    .quiz-image-col {
+        flex: 0 0 30%;
+    }
 }

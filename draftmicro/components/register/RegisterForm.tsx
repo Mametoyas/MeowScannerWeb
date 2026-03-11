@@ -41,7 +41,11 @@ const RegisterForm: React.FC = () => {
         setMessage(result.error || 'Registration failed')
       }
     } catch (error) {
+<<<<<<< Updated upstream
       setMessage('Network or API gateway error. Please try again.')
+=======
+      setMessage('❌ Network error. Please try again.')
+>>>>>>> Stashed changes
     } finally {
       setLoading(false)
     }
@@ -94,7 +98,7 @@ const RegisterForm: React.FC = () => {
       </div>
 
       {message && (
-        <div className={`message ${message.includes('successful') ? 'success' : 'error'}`}>
+        <div className={`message ${message.includes('successful') ? 'success' : 'error'}`} style={message.includes('Network error') ? { color: 'red' } : {}}>
           {message}
         </div>
       )}

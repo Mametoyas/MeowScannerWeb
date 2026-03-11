@@ -48,7 +48,7 @@ body {
 
 .cat-image {
     width: 18rem;
-    max-width: 40%;
+    max-width: 100%;
 }
 
 .login-box {
@@ -80,6 +80,13 @@ body {
     padding: 0.6rem;
     border: 1px solid #ccc;
     font-size: 1rem;
+    color: #000;
+}
+
+.message-error {
+    color: #dc2626;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
 }
 
 .options {
