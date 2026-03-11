@@ -1,34 +1,117 @@
-import React from "react"
+"use client"
+import React, { useState } from "react"
+import { authService } from "@/components/api"
 
-const LoginForm: React.FC = () => {
+const RegisterForm: React.FC = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    username: '',
+    password: '',
+    confirmPassword: ''
+  })
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState('')
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (formData.password !== formData.confirmPassword) {
+      setMessage('Passwords do not match')
+      return
+    }
+
+    setLoading(true)
+    setMessage('')
+
+    try {
+      const result = await authService.register(formData.name, formData.username, formData.password)
+      
+      if (result.success) {
+        setMessage('Registration successful!')
+        // Redirect to login page
+        window.location.href = '/login'
+      } else {
+        setMessage(result.error || 'Registration failed')
+      }
+    } catch (error) {
+      setMessage('Network error. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <div className="form-group">
-        <label>Username or Email address</label>
-        <input type="text" />
+        <label>Full Name</label>
+        <input 
+          type="text" 
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Username</label>
+        <input 
+          type="text" 
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
+          required
+        />
       </div>
 
       <div className="form-group">
         <label>Password</label>
-        <input type="password" />
+        <input 
+          type="password" 
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
       </div>
 
       <div className="form-group">
         <label>Confirm Password</label>
-        <input type="password" />
+        <input 
+          type="password" 
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          required
+        />
       </div>
+
+      {message && (
+        <div className={`message ${message.includes('successful') ? 'success' : 'error'}`}>
+          {message}
+        </div>
+      )}
 
       <div className="options">
-        <label>
-          <input type="checkbox" /> Remember me
-        </label>
-
         <div>
-          <button className="confirmed-btn">ConFirme</button>
+          <button 
+            type="submit" 
+            className="confirmed-btn"
+            disabled={loading}
+          >
+            {loading ? 'Registering...' : 'Register'}
+          </button>
         </div>
       </div>
-    </>
+    </form>
   )
 }
 
-export default LoginForm
+export default RegisterForm

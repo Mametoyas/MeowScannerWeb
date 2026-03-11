@@ -12,12 +12,13 @@ from flask_cors import CORS
 from Model import PretrainedCatDetector
 
 app = Flask(__name__)
+CORS(app)
 
 # Load custom model
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 num_classes = 9
 model = PretrainedCatDetector(num_classes=num_classes,num_anchors=5)
-model.load_state_dict(torch.load('Backend\DenseNet121_CatV3_withCBAMv8.pth', map_location=device))
+model.load_state_dict(torch.load('..\\DenseNet121_CatV3_withCBAMv8.pth', map_location=device))
 model.to(device)
 model.eval()
 
@@ -27,29 +28,19 @@ transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.5121, 0.4615, 0.4059], std=[0.2247, 0.2278, 0.2331])
 ])
-CORS(app, resources={
-    r"/*": {
-        "origins": ["http://localhost:3000", "http://10.54.55.59:3000"],  # อนุญาตแค่ Frontend
-        "methods": ["GET", "POST", "OPTIONS"],
-        "allow_headers": ["Content-Type"]
-    }
-})
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-
 @app.route("/", methods=["GET"])
 def mainRoute():
-    return "Hello Flask API"
+    return "Model API Service"
 
 @app.route("/health", methods=["GET"])
 def check_health():
-    return jsonify({
-        "code": 200
-    })
-
+    return jsonify({"code": 200})
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -115,57 +106,5 @@ def predict():
             "Error Text": "ไฟล์ผิดประเภท"
         })
 
-@app.errorhandler(404)
-def not_found(e):
-    return jsonify({
-        "error": "ไม่รู้จัก Route ที่เรียกใช้ครับ",
-        "code": 404
-    }), 404
-
-@app.errorhandler(405)
-def method_not_allowed(e):
-    return jsonify({
-        "error": "Method ไม่ถูกต้องครับ",
-        "code": 405
-    }), 405
-
-@app.errorhandler(500)
-def server_error(e):
-    return jsonify({
-        "error": "Internal Server Error",
-        "code": 500
-    }), 500
-
-@app.errorhandler(502)
-def bad_gateway(e):
-    return jsonify({
-        "error": "Bad Gateway",
-        "code": 502
-    }), 502
-
-@app.errorhandler(503)
-def service_unavailable(e):
-    return jsonify({
-        "error": "Service Unavailable",
-        "code": 503
-    }), 503
-    
-    
-@app.errorhandler(400)
-def worng_pattern(e):
-    return jsonify({
-        "error": "ส่งข้อมูลไม่ถูก pattern",
-        "code": 400        
-    }), 400
-
-
-@app.errorhandler(504)
-def gateway_timeout(e):
-    return jsonify({
-        "error": "Gateway Timeout",
-        "code": 504
-    }), 504
-
 if __name__ == '__main__':
-    
-    app.run(host='0.0.0.0', port=2569, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

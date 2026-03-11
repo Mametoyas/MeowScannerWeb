@@ -4,24 +4,32 @@ import "../../styles/Predict.css";
 // import Navbar from "@/components/Navbar"; // ใส่ Navbar ของคุณ
 import PredictImage from "@/components/predict/PredictImage";
 import PredictResult from "@/components/predict/PredictResult";
-import { PredictionData } from "@/components/predict/types/predict"; // ระวัง Path ตรงนี้นะครับ ให้ชี้ไปที่ไฟล์ types ของคุณ
+import { PredictionData } from "@/components/predict/types/predict";
 import Navbar from "@/components/predict/Navbar";
+import { dataService } from "@/components/api";
 
 export default function PredictPage() {
   const [prediction, setPrediction] = useState<PredictionData | null>(null);
 
-  useEffect(() => {
-    // ข้อมูลจำลองให้ตรงกับรูปภาพของคุณ
-    const mockData: PredictionData = {
-      imageUrl: "/images/logo.png", // เปลี่ยนเป็นรูปที่มีกรอบเขียวๆ แดงๆ ของคุณ
-      catCount: 17,
-      breed: "Cat",
-      features: "มี 4 ขา 2 ตา 1 หาง",
-      confidence: 100
-    };
+  const handleImageUpload = async (imageFile: File) => {
+    const formData = new FormData();
+    formData.append('image', imageFile);
     
-    setPrediction(mockData);
-  }, []);
+    const apiUrl = process.env.NODE_ENV === 'production' 
+      ? process.env.NEXT_PUBLIC_API_URL || 'https://your-ngrok-url.ngrok.io'
+      : 'http://localhost:5000';
+    
+    try {
+      const response = await fetch(`${apiUrl}/predict`, {
+        method: 'POST',
+        body: formData
+      });
+      const result = await response.json();
+      setPrediction(result);
+    } catch (error) {
+      console.error('Prediction failed:', error);
+    }
+  };
 
   return (
     <>
