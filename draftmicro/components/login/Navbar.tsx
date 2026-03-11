@@ -8,8 +8,8 @@ const Navbar: React.FC = () => {
       </div>
 
       <div className="nav-links">
-        <a href="#" className="login-link">เข้าสู่ระบบ</a>
-        <a href="#" className="register-link">สร้างบัญชี</a>
+        <a href="/login" className="login-link">เข้าสู่ระบบ</a>
+        <a href="/register" className="register-link">สร้างบัญชี</a>
       </div>
     </div>
   )

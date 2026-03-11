@@ -3,29 +3,12 @@ import { useState, useEffect } from "react";
 import CatCard from "./CatCard";
 
 export interface Cat {
-  id: number;
-  name: string;
-  history: string;
-  source: string;
-  image: string;
+  CatID: string;
+  CatName: string;
+  CatPersonal: string;
+  CatDetails: string;
+  ImgURL?: string;
 }
-
-const mockCats: Cat[] = [
-  {
-    id: 1,
-    name: "วิเชียรมาศ (Siamese)",
-    history: "ประวัติ: แมววิเชียรมาศเป็นแมวไทยโบราณที่มีต้นกำเนิดในสมัยอยุธยา ปรากฏหลักฐานในสมุดข่อย...",
-    source: "The International Cat Association (TICA)\nสมุดข่อยโบราณ (Tamra Maew)",
-    image: "/images/logo.png"
-  },
-  {
-    id: 2,
-    name: "สก็อตติช โฟลด์ (Scottish Fold)",
-    history: "ประวัติ: ต้นกำเนิดของสายพันธุ์นี้เริ่มต้นในปี 1961 ที่สกอตแลนด์ เมื่อมีการค้นพบลูกแมวสีขาวชื่อ 'Susie'...",
-    source: "The Cat Fanciers' Association (CFA)\nEncyclopedia of Cat Breeds",
-    image: "/images/logo.png"
-  }
-];
 
 interface CatListProps {
   searchTerm: string;
@@ -33,23 +16,90 @@ interface CatListProps {
 
 export default function CatList({ searchTerm }: CatListProps) {
   const [cats, setCats] = useState<Cat[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    setCats(mockCats);
+    fetchCats();
   }, []);
 
+  const fetchCats = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('http://localhost:5001/get-cats');
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        setCats(data.cats || []);
+      } else {
+        setError('Failed to fetch cat data');
+      }
+    } catch (error) {
+      console.error('Error fetching cats:', error);
+      setError('Error connecting to database');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const filteredCats = cats.filter((cat) => 
-    cat.name.toLowerCase().includes(searchTerm.toLowerCase())
+    cat.CatName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    cat.CatPersonal.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    cat.CatDetails.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  if (loading) {
+    return (
+      <div className="cat-list">
+        <div className="loading-message">
+          <p>🐱 Loading cat breeds...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="cat-list">
+        <div className="error-message">
+          <p>❌ {error}</p>
+          <button onClick={fetchCats} className="retry-btn">
+            🔄 Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="cat-list">
+      {searchTerm && (
+        <div className="search-results-header">
+          <p>🔍 Found {filteredCats.length} result(s) for "{searchTerm}"</p>
+        </div>
+      )}
+      
       {filteredCats.length > 0 ? (
         filteredCats.map((cat) => (
-          <CatCard key={cat.id} cat={cat} />
+          <CatCard key={cat.CatID} cat={cat} />
         ))
+      ) : searchTerm ? (
+        <div className="no-results">
+          <p>😿 No cats found for "{searchTerm}"</p>
+          <p>Try searching for:</p>
+          <ul>
+            <li>Cat breed names (e.g., "Siamese", "Bengal")</li>
+            <li>Personality traits (e.g., "playful", "calm")</li>
+            <li>Physical features (e.g., "long hair", "blue eyes")</li>
+          </ul>
+        </div>
       ) : (
-        <p style={{ textAlign: "center", color: "white" }}>ไม่พบข้อมูลน้องแมวที่คุณค้นหา 😿</p>
+        <div className="all-cats">
+          <h2>🐾 All Cat Breeds ({cats.length})</h2>
+          {cats.map((cat) => (
+            <CatCard key={cat.CatID} cat={cat} />
+          ))}
+        </div>
       )}
     </div>
   );

@@ -54,5 +54,14 @@ export const dataService = {
       body: JSON.stringify({ location: housing, time: lifestyle, personality, uid })
     });
     return response.json();
+  },
+
+  async addHistory(userId: string, catId: string) {
+    const response = await fetch(`${DATABASE_API_URL}/add-history`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, cat_id: catId })
+    });
+    return response.json();
   }
 };
