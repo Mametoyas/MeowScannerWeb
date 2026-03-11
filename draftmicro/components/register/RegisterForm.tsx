@@ -41,7 +41,7 @@ const RegisterForm: React.FC = () => {
         setMessage(result.error || 'Registration failed')
       }
     } catch (error) {
-      setMessage('Network error. Please try again.')
+      setMessage('Network or API gateway error. Please try again.')
     } finally {
       setLoading(false)
     }
