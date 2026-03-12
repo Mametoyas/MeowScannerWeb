@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link";
 
 interface NavbarProps {
   searchTerm?: string;
@@ -9,7 +10,9 @@ const Navbar: React.FC<NavbarProps> = ({ searchTerm, onSearchChange }) => {
   return (
     <div className="navbar">
       <div className="logo">
-        <img src="/images/logo.png" alt="Logo" />
+        <Link href="/main">
+          <img src="/images/logo.png" alt="Logo" />
+        </Link>
       </div>
 
       <div className="nav-links">
