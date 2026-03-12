@@ -1,256 +1,382 @@
-.catmap-container {
-  min-height: 100vh;
-  background-color: #f8f9fa;
-  padding: 2rem;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Sarabun:wght@400;500;600&display=swap');
+
+:root {
+    --orange:       #f97316;
+    --orange-dark:  #ea580c;
+    --orange-pale:  #fff7ed;
+    --orange-light: #fed7aa;
+    --cream:        #fdf6ee;
+    --border:       #e8d5c0;
+    --text:         #1c1009;
+    --text-muted:   #78716c;
+    --shadow:       rgba(249, 115, 22, 0.18);
 }
 
+* {
+    font-family: 'Sarabun', Arial, sans-serif;
+}
+
+.catmap-container {
+    min-height: 100vh;
+    background-color: var(--cream);
+    background-image:
+        radial-gradient(ellipse 55% 45% at 10% 15%, #fde8d0 0%, transparent 60%),
+        radial-gradient(ellipse 45% 50% at 90% 85%, #fde8d0 0%, transparent 55%);
+    padding: 2rem;
+}
+
+/* ── Header ── */
 .catmap-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(10px);
+    border-radius: 1.5rem;
+    border: 1.5px solid var(--border);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 20px 60px var(--shadow);
+    animation: slideUp 0.45s ease both;
 }
 
 .catmap-header h1 {
-  color: #1d4ed8;
-  margin: 0;
-  font-size: 1.8rem;
+    color: var(--orange-dark);
+    margin: 0;
+    font-size: 1.8rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    letter-spacing: 0.1rem;
 }
 
 .header-controls {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .location-count {
-  color: #6b7280;
-  font-size: 0.9rem;
-  padding: 0.5rem 1rem;
-  background: #f3f4f6;
-  border-radius: 0.375rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--orange-pale);
+    border-radius: 0.75rem;
+    border: 1.5px solid var(--orange-light);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
 }
 
+/* ── Home Button ── */
 .home-btn {
-  background-color: #1d4ed8;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
+    background: linear-gradient(135deg, var(--orange), #fb923c);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--shadow);
+    transition: all 0.2s ease;
+    letter-spacing: 0.03rem;
 }
 
 .home-btn:hover {
-  background-color: #1e40af;
+    background: linear-gradient(135deg, var(--orange-dark), var(--orange));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--shadow);
 }
 
+.home-btn:active {
+    transform: translateY(0);
+}
+
+/* ── Messages ── */
 .message {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 0.375rem;
-  font-weight: 500;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .message.success {
-  background-color: #d1fae5;
-  color: #065f46;
-  border: 1px solid #10b981;
+    background-color: var(--orange-pale);
+    color: var(--orange-dark);
+    border: 1.5px solid var(--orange-light);
 }
 
 .message.error {
-  background-color: #fee2e2;
-  color: #991b1b;
-  border: 1px solid #ef4444;
+    background-color: #fef2f2;
+    color: #dc2626;
+    border: 1.5px solid #fecaca;
 }
 
+/* ── Map Content ── */
 .map-content {
-  background: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  overflow: hidden;
+    background: white;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 20px 60px var(--shadow);
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+    animation: slideUp 0.45s ease both;
 }
 
 .loading {
-  text-align: center;
-  padding: 4rem;
-  color: #6b7280;
-  font-size: 1.1rem;
+    text-align: center;
+    padding: 4rem;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-family: 'Sarabun', sans-serif;
 }
 
+/* ── No Data State ── */
 .no-data {
-  text-align: center;
-  padding: 4rem;
-  color: #6b7280;
+    text-align: center;
+    padding: 4rem;
+    color: var(--text-muted);
 }
 
 .no-data h2 {
-  color: #374151;
-  margin-bottom: 1rem;
+    color: var(--text);
+    margin-bottom: 1rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
 }
 
 .no-data p {
-  margin: 0.5rem 0 2rem 0;
-  font-size: 1rem;
+    margin: 0.5rem 0 2rem 0;
+    font-size: 1rem;
+    font-family: 'Sarabun', sans-serif;
 }
 
+/* ── Predict Button ── */
 .predict-btn {
-  background-color: #10b981;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
+    background: linear-gradient(135deg, var(--orange), #fb923c);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--shadow);
+    transition: all 0.2s ease;
+    letter-spacing: 0.03rem;
 }
 
 .predict-btn:hover {
-  background-color: #059669;
+    background: linear-gradient(135deg, var(--orange-dark), var(--orange));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--shadow);
 }
 
+.predict-btn:active {
+    transform: translateY(0);
+}
+
+/* ── Map Container ── */
 .map-container {
-  height: 500px;
-  position: relative;
-  margin: 2rem;
-  border-radius: 0.5rem;
-  overflow: hidden;
+    height: 500px;
+    position: relative;
+    margin: 2rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+    box-shadow: 0 4px 12px var(--shadow);
 }
 
 .leaflet-map {
-  width: 100%;
-  height: 100%;
-  border-radius: 0.5rem;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
 }
 
 /* Fix Leaflet CSS issues */
 .leaflet-pane img, 
 .leaflet-tile-container img {
-  max-width: none !important;
-  max-height: none !important;
-  box-shadow: none !important;
+    max-width: none !important;
+    max-height: none !important;
+    box-shadow: none !important;
 }
 
 .custom-div-icon {
-  background: transparent !important;
-  border: none !important;
+    background: transparent !important;
+    border: none !important;
 }
 
+/* ── Legend ── */
 .legend {
-  padding: 2rem;
-  border-top: 1px solid #e5e7eb;
+    padding: 2rem;
+    border-top: 1.5px solid var(--border);
 }
 
 .legend h3 {
-  color: #374151;
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.05rem;
 }
 
 .legend-items {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
 }
 
 .legend-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background: #f9fafb;
-  border-radius: 0.375rem;
-  border: 1px solid #e5e7eb;
-  transition: box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: var(--orange-pale);
+    border-radius: 0.75rem;
+    border: 1.5px solid var(--orange-light);
+    transition: all 0.2s ease;
 }
 
 .legend-item:hover {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background-color: var(--orange-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow);
 }
 
 .legend-marker {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-  font-size: 14px;
-  border: 2px solid white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 800;
+    font-size: 14px;
+    font-family: 'Nunito', sans-serif;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px var(--shadow);
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--orange), #fb923c);
 }
 
 .legend-info {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .legend-info strong {
-  color: #374151;
-  font-size: 1rem;
+    color: var(--text);
+    font-size: 1rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
 }
 
 .legend-id {
-  color: #6b7280;
-  font-size: 0.875rem;
-  background: #e5e7eb;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    background: rgba(249, 115, 22, 0.2);
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    border: 1px solid var(--orange-light);
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 600;
 }
 
+/* ── View Button ── */
 .view-btn {
-  background-color: #1d4ed8;
-  color: white;
-  border: none;
-  padding: 0.375rem 0.75rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  white-space: nowrap;
+    background: linear-gradient(135deg, var(--orange), #fb923c);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 2px 6px var(--shadow);
+    transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .view-btn:hover {
-  background-color: #1e40af;
+    background: linear-gradient(135deg, var(--orange-dark), var(--orange));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--shadow);
 }
 
+.view-btn:active {
+    transform: translateY(0);
+}
+
+/* ── Animations ── */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ── */
 @media (max-width: 768px) {
-  .catmap-container {
-    padding: 1rem;
-  }
-  
-  .catmap-header {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .header-controls {
-    width: 100%;
-    justify-content: space-between;
-  }
-  
-  .map-container {
-    height: 400px;
-    margin: 1rem;
-  }
-  
-  .legend-items {
-    grid-template-columns: 1fr;
-  }
-  
-  .legend-info {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
+    .catmap-container {
+        padding: 1rem;
+    }
+
+    .catmap-header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+
+    .catmap-header h1 {
+        font-size: 1.5rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .header-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .map-container {
+        height: 400px;
+        margin: 1rem;
+    }
+
+    .legend {
+        padding: 1.5rem;
+    }
+
+    .legend-items {
+        grid-template-columns: 1fr;
+    }
+
+    .legend-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .legend-item {
+        padding: 1rem;
+    }
+
+    .no-data {
+        padding: 2rem 1rem;
+    }
+
+    .loading {
+        padding: 2rem 1rem;
+    }
 }
