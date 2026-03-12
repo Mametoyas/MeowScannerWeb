@@ -1,24 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Sarabun:wght@400;500;600&display=swap');
+
+:root {
+    --orange:       #ed9a5f;
+    --orange-dark:  #e97f47;
+    --orange-pale:  #fff7ed;
+    --orange-light: #fed7aa;
+    --cream:        #fdf6ee;
+    --border:       #e8d5c0;
+    --text:         #1c1009;
+    --text-muted:   #78716c;
+    --shadow:       rgba(249, 115, 22, 0.18);
+}
+
 * {
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Sarabun', Arial, sans-serif;
 }
 
 body {
     margin: 0;
-    background-color: #ffffff;
+    background-color: var(--cream);
+    background-image:
+        radial-gradient(ellipse 55% 45% at 10% 15%, #fde8d0 0%, transparent 60%),
+        radial-gradient(ellipse 45% 50% at 90% 85%, #fde8d0 0%, transparent 55%);
+    min-height: 100vh;
 }
 
+/* ── Navbar ── */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
     height: 80px;
-    border-bottom: 1px solid #ccc;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 16px rgba(249, 115, 22, 0.07);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .logo img {
     max-height: 60px;
+    filter: drop-shadow(0 2px 8px var(--shadow));
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: rotate(-6deg) scale(1.07);
 }
 
 .nav-links {
@@ -28,8 +59,10 @@ body {
 }
 
 .select {
-    color: #1d4ed8;
+    color: var(--orange-dark);
     font-size: 0.9rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
 }
 
 .input-search {
@@ -38,69 +71,130 @@ body {
     height: 2.5rem;
     padding: 0 0.75rem;
     border-radius: 1rem;
-    color: #000;
-    border: 1px solid #000000;
+    color: var(--text);
+    border: 1.5px solid var(--border);
+    background: var(--orange-pale);
+    font-family: 'Sarabun', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.input-search:focus {
+    border-color: var(--orange);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.13);
 }
 
 .search-btn {
     font-size: 0.90rem;
-    color: #000;
+    color: var(--text);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    transition: color 0.2s ease;
 }
 
+.search-btn:hover {
+    color: var(--orange);
+}
+
+/* ── Search Container ── */
 .search-container {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     align-items: flex-start;
     width: 100%;
     min-height: calc(100vh - 80px);
     padding: 3rem 1.5rem;
 }
 
-
 .cat-list {
     width: 100%;
     max-width: 56rem;
     margin: 0 auto;
-    padding: 1.25rem;
-    background-color: #b3b3b3;
-    border-radius: 0.75rem;
+    padding: 2rem;
+    background-color: transparent;
+    border-radius: 1.5rem;
+    animation: slideUp 0.45s ease both;
 }
 
+/* ── Messages ── */
 .loading-message, .error-message {
     text-align: center;
-    padding: 2rem;
-    color: white;
+    padding: 2.5rem;
+    color: var(--text);
     font-size: 1.1rem;
+    background: white;
+    border-radius: 1.5rem;
+    border: 1.5px solid var(--border);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 20px 60px var(--shadow);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+}
+
+.error-message {
+    color: #dc2626;
+    background-color: #fef2f2;
+    border-color: #fecaca;
 }
 
 .retry-btn {
-    background-color: #1d4ed8;
+    background: linear-gradient(135deg, var(--orange), #fb923c);
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
     cursor: pointer;
     margin-top: 1rem;
-    transition: background-color 0.2s;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px var(--shadow);
+    transition: all 0.2s ease;
+    letter-spacing: 0.03rem;
 }
 
 .retry-btn:hover {
-    background-color: #1e40af;
+    background: linear-gradient(135deg, var(--orange-dark), var(--orange));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--shadow);
 }
 
+.retry-btn:active {
+    transform: translateY(0);
+}
+
+/* ── Search Results Header ── */
 .search-results-header {
     text-align: center;
-    margin-bottom: 1rem;
-    padding: 0.75rem;
-    background-color: rgba(255,255,255,0.1);
-    border-radius: 0.5rem;
-    color: white;
+    margin-bottom: 2rem;
+    padding: 1.25rem;
+    background-color: var(--orange-pale);
+    border-radius: 1rem;
+    border: 1.5px solid var(--orange-light);
+    color: var(--orange-dark);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    animation: slideDown 0.3s ease;
 }
 
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── No Results ── */
 .no-results {
     text-align: center;
-    padding: 2rem;
-    color: white;
+    padding: 3rem 2rem;
+    color: var(--text);
+    background: white;
+    border-radius: 1.5rem;
+    border: 1.5px solid var(--border);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 20px 60px var(--shadow);
 }
 
 .no-results ul {
@@ -111,31 +205,46 @@ body {
 
 .no-results li {
     margin: 0.5rem 0;
+    color: var(--text-muted);
 }
 
+/* ── All Cats Section ── */
 .all-cats h2 {
     text-align: center;
-    color: white;
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
+    color: var(--text);
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    letter-spacing: 0.1rem;
 }
 
+/* ── Cat Card ── */
 .cat-card {
     display: flex;
     align-items: center;
     gap: 1.25rem;
-    background-color: #9b6b4f;
+    background: linear-gradient(135deg, var(--orange), #fb923c);
     color: white;
-    border-radius: 0.75rem;
-    padding: 1.25rem;
-    margin-bottom: 1.25rem;
+    border-radius: 1.25rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 20px 60px var(--shadow);
+    border: 1.5px solid var(--orange-light);
+    transition: all 0.3s ease;
+    animation: slideUp 0.45s ease both;
 }
 
+.cat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--shadow);
+}
 
 .cat-info {
     flex: 1;
 }
 
+/* ── Cat Header ── */
 .cat-header {
     display: flex;
     justify-content: space-between;
@@ -146,24 +255,33 @@ body {
 .cat-header h3 {
     margin: 0;
     font-size: 1.5rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    letter-spacing: 0.05rem;
 }
 
 .cat-id {
-    background-color: rgba(255,255,255,0.2);
-    padding: 0.25rem 0.75rem;
+    background-color: rgba(255, 255, 255, 0.25);
+    padding: 0.4rem 1rem;
     border-radius: 1rem;
     font-size: 0.875rem;
-    font-weight: bold;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+/* ── Cat Personality & Details ── */
 .cat-personality, .cat-details {
     margin-bottom: 1rem;
 }
 
 .cat-personality h4, .cat-details h4 {
     margin: 0 0 0.5rem 0;
-    font-size: 1rem;
-    color: #ffd700;
+    font-size: 1.1rem;
+    color: #fff9e6;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
 }
 
 .cat-info p {
@@ -171,6 +289,27 @@ body {
     word-break: break-word;
     margin: 0;
     text-align: justify;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 0.95rem;
+}
+
+/* ── Cat Image ── */
+.cat-image-box {
+    width: 18rem;
+    aspect-ratio: 16 / 9;
+    background-color: white;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px var(--shadow);
+    border: 2px solid white;
+}
+
+.cat-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: white;
 }
 
 .no-image {
@@ -179,7 +318,8 @@ body {
     align-items: center;
     justify-content: center;
     height: 100%;
-    color: #9ca3af;
+    color: var(--text-muted);
+    background: white;
 }
 
 .no-image span {
@@ -190,25 +330,17 @@ body {
 .no-image p {
     margin: 0;
     font-size: 0.875rem;
+    font-family: 'Sarabun', sans-serif;
 }
 
-.cat-image-box {
-    width: 18rem;
-    aspect-ratio: 16 / 9;
-    background-color: white;
-    border-radius: 0.4rem;
-    overflow: hidden;
-    flex-shrink: 0;
+/* ── Animations ── */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-.cat-image-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
+/* ── Responsive ── */
 @media (max-width: 768px) {
-
     .navbar {
         flex-direction: column;
         height: auto;
@@ -222,22 +354,50 @@ body {
         align-items: stretch;
     }
 
+    .input-search {
+        width: 100%;
+    }
+
+    .search-container {
+        padding: 2rem 1rem;
+    }
+
+    .cat-list {
+        padding: 1rem;
+    }
+
     .cat-card {
         flex-direction: column;
         align-items: stretch;
+        padding: 1.25rem;
+        margin-bottom: 1rem;
     }
 
     .cat-image-box {
         width: 100%;
     }
 
-    .input-search {
-        width: 100%;
+    .cat-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .cat-header h3 {
+        font-size: 1.3rem;
+    }
+
+    .all-cats h2 {
+        font-size: 1.5rem;
+    }
+
+    .loading-message, .error-message {
+        padding: 1.5rem;
+        font-size: 1rem;
     }
 }
 
 @media (max-width: 1024px) {
-
     .cat-list {
         max-width: 100%;
     }
