@@ -1,323 +1,574 @@
-.admin-container {
-  min-height: 100vh;
-  background-color: #f8f9fa;
-  padding: 2rem;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Sarabun:wght@400;500;600&display=swap');
+
+:root {
+    --orange:       #f97316;
+    --orange-dark:  #ea580c;
+    --orange-pale:  #fff7ed;
+    --orange-light: #fed7aa;
+    --cream:        #fdf6ee;
+    --border:       #e8d5c0;
+    --text:         #1c1009;
+    --text-muted:   #78716c;
+    --shadow:       rgba(249, 115, 22, 0.18);
 }
 
+* {
+    box-sizing: border-box;
+    font-family: 'Sarabun', Arial, sans-serif;
+}
+
+.admin-container {
+    min-height: 100vh;
+    background-color: var(--cream);
+    background-image:
+        radial-gradient(ellipse 55% 45% at 10% 15%, #fde8d0 0%, transparent 60%),
+        radial-gradient(ellipse 45% 50% at 90% 85%, #fde8d0 0%, transparent 55%);
+    padding: 2rem;
+}
+
+/* ── Admin Header ── */
 .admin-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(10px);
+    border-radius: 1.5rem;
+    border: 1.5px solid var(--border);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 20px 60px var(--shadow);
+    animation: slideUp 0.45s ease both;
 }
 
 .admin-header h1 {
-  color: #1d4ed8;
-  margin: 0;
-  font-size: 1.8rem;
+    color: var(--orange-dark);
+    margin: 0;
+    font-size: 1.8rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    letter-spacing: 0.1rem;
 }
 
 .admin-controls {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
+/* ── Search Input ── */
 .search-input {
-  padding: 0.5rem 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-  width: 300px;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    width: 300px;
+    background: var(--orange-pale);
+    color: var(--text);
+    font-family: 'Sarabun', sans-serif;
+    transition: all 0.2s ease;
 }
 
 .search-input:focus {
-  outline: none;
-  border-color: #1d4ed8;
-  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
+    outline: none;
+    border-color: var(--orange);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.13);
 }
 
+/* ── Add Button ── */
 .add-btn {
-  background-color: #10b981;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
+    background: linear-gradient(135deg, var(--orange), #fb923c);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--shadow);
+    transition: all 0.2s ease;
+    letter-spacing: 0.03rem;
 }
 
 .add-btn:hover {
-  background-color: #059669;
+    background: linear-gradient(135deg, var(--orange-dark), var(--orange));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--shadow);
 }
 
+.add-btn:active {
+    transform: translateY(0);
+}
+
+/* ── Home Button ── */
 .home-btn {
-  background-color: #1d4ed8;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
+    background: linear-gradient(135deg, var(--orange), #fb923c);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--shadow);
+    transition: all 0.2s ease;
+    letter-spacing: 0.03rem;
 }
 
 .home-btn:hover {
-  background-color: #1e40af;
+    background: linear-gradient(135deg, var(--orange-dark), var(--orange));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--shadow);
 }
 
+.home-btn:active {
+    transform: translateY(0);
+}
+
+/* ── Messages ── */
 .message {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 0.375rem;
-  font-weight: 500;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .message.success {
-  background-color: #d1fae5;
-  color: #065f46;
-  border: 1px solid #10b981;
+    background-color: var(--orange-pale);
+    color: var(--orange-dark);
+    border: 1.5px solid var(--orange-light);
 }
 
 .message.error {
-  background-color: #fee2e2;
-  color: #991b1b;
-  border: 1px solid #ef4444;
+    background-color: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #ef4444;
 }
 
+/* ── Admin Content ── */
 .admin-content {
-  display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 2rem;
 }
 
+/* ── Tab Buttons ── */
 .tab-buttons {
-  display: flex;
-  gap: 0.5rem;
-  margin-right: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    margin-right: 1rem;
+    flex-wrap: wrap;
 }
 
 .tab-btn {
-  background-color: #e5e7eb;
-  color: #374151;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s;
+    background-color: var(--orange-pale);
+    color: var(--orange-dark);
+    border: 1.5px solid var(--orange-light);
+    padding: 0.6rem 1.25rem;
+    border-radius: 0.75rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .tab-btn:hover {
-  background-color: #d1d5db;
+    background-color: var(--orange-light);
+    transform: translateY(-1px);
 }
 
 .tab-btn.active {
-  background-color: #1d4ed8;
-  color: white;
+    background: linear-gradient(135deg, var(--orange), #fb923c);
+    color: white;
+    border-color: var(--orange);
+    box-shadow: 0 4px 12px var(--shadow);
 }
 
+/* ── Data List ── */
 .data-list {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: white;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    border: 1.5px solid var(--border);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 20px 60px var(--shadow);
+    animation: slideUp 0.45s ease both;
 }
 
 .data-list h2 {
-  color: #374151;
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.05rem;
 }
 
 .data-grid {
-  display: grid;
-  gap: 1rem;
-  max-height: 70vh;
-  overflow-y: auto;
+    display: grid;
+    gap: 1rem;
+    max-height: 70vh;
+    overflow-y: auto;
 }
 
+/* ── Data Card ── */
 .data-card {
-  border: 1px solid #e5e7eb;
-  border-radius: 0.375rem;
-  padding: 1rem;
-  transition: box-shadow 0.2s;
+    border: 1.5px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    transition: all 0.2s ease;
+    background: white;
 }
 
 .data-card:hover {
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px var(--shadow);
+    border-color: var(--orange-light);
+    transform: translateY(-1px);
 }
 
 .data-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
 }
 
 .data-header h3 {
-  margin: 0;
-  color: #1f2937;
-  font-size: 1.1rem;
+    margin: 0;
+    color: var(--text);
+    font-size: 1.1rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
 }
 
 .data-id {
-  background-color: #e5e7eb;
-  color: #374151;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  font-weight: 500;
+    background-color: var(--orange-pale);
+    color: var(--orange-dark);
+    padding: 0.4rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    border: 1px solid var(--orange-light);
 }
 
 .data-info {
-  color: #6b7280;
-  margin: 0.25rem 0;
-  font-size: 0.875rem;
-  line-height: 1.4;
+    color: var(--text-muted);
+    margin: 0.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    font-family: 'Sarabun', sans-serif;
 }
 
 .data-actions {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
 }
 
+/* ── Edit & Delete Buttons ── */
 .edit-btn {
-  background-color: #1d4ed8;
-  color: white;
-  border: none;
-  padding: 0.375rem 0.75rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
+    background: linear-gradient(135deg, var(--orange), #fb923c);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 2px 6px var(--shadow);
+    transition: all 0.2s ease;
 }
 
 .edit-btn:hover {
-  background-color: #1e40af;
+    background: linear-gradient(135deg, var(--orange-dark), var(--orange));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--shadow);
 }
 
 .delete-btn {
-  background-color: #ef4444;
-  color: white;
-  border: none;
-  padding: 0.375rem 0.75rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.2);
+    transition: all 0.2s ease;
 }
 
 .delete-btn:hover {
-  background-color: #dc2626;
+    background-color: #dc2626;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
+/* ── Form Panel ── */
 .form-panel {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  height: fit-content;
+    background: white;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    border: 1.5px solid var(--border);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 20px 60px var(--shadow);
+    height: fit-content;
+    animation: slideUp 0.45s ease both;
 }
 
 .form-panel h2 {
-  color: #374151;
-  margin-bottom: 1.5rem;
-  font-size: 1.25rem;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.05rem;
 }
 
+/* ── Form Group ── */
 .form-group {
-  margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #374151;
-  font-weight: 500;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
 }
 
 .form-group input,
 .form-group textarea {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-  font-family: inherit;
+    width: 100%;
+    padding: 0.75rem;
+    border: 1.5px solid var(--border);
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-family: 'Sarabun', sans-serif;
+    background: var(--orange-pale);
+    color: var(--text);
+    transition: all 0.2s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  outline: none;
-  border-color: #1d4ed8;
-  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
+    outline: none;
+    border-color: var(--orange);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.13);
 }
 
 .form-group input:disabled {
-  background-color: #f3f4f6;
-  color: #6b7280;
+    background-color: #e5e5e5;
+    color: var(--text-muted);
+    cursor: not-allowed;
 }
 
+/* ── Form Actions ── */
 .form-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
 }
 
 .save-btn {
-  background-color: #10b981;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
+    background: linear-gradient(135deg, var(--orange), #fb923c);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--shadow);
+    transition: all 0.2s ease;
+    letter-spacing: 0.03rem;
 }
 
 .save-btn:hover {
-  background-color: #059669;
+    background: linear-gradient(135deg, var(--orange-dark), var(--orange));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--shadow);
+}
+
+.save-btn:active {
+    transform: translateY(0);
 }
 
 .cancel-btn {
-  background-color: #6b7280;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
+    background-color: var(--text-muted);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+    letter-spacing: 0.03rem;
 }
 
 .cancel-btn:hover {
-  background-color: #4b5563;
+    background-color: var(--text);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
+.cancel-btn:active {
+    transform: translateY(0);
+}
+
+/* ── Animations ── */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Scrollbar Styling ── */
+.data-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.data-grid::-webkit-scrollbar-track {
+    background: var(--orange-pale);
+    border-radius: 10px;
+}
+
+.data-grid::-webkit-scrollbar-thumb {
+    background: var(--orange);
+    border-radius: 10px;
+}
+
+.data-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--orange-dark);
+}
+
+/* ── Responsive ── */
 @media (max-width: 1024px) {
-  .admin-content {
-    grid-template-columns: 1fr;
-  }
-  
-  .admin-header {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .admin-controls {
-    width: 100%;
-    justify-content: space-between;
-  }
-  
-  .search-input {
-    width: 100%;
-    max-width: 300px;
-  }
+    .admin-content {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-header {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .admin-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .admin-controls {
+        width: 100%;
+        justify-content: space-between;
+        gap: 0.75rem;
+    }
+
+    .search-input {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .tab-buttons {
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .tab-btn {
+        flex: 1;
+    }
+
+    .data-list {
+        padding: 1.5rem;
+    }
+
+    .form-panel {
+        padding: 1.5rem;
+    }
+
+    .data-grid {
+        max-height: 50vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-container {
+        padding: 1rem;
+    }
+
+    .admin-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+        padding: 1.25rem;
+    }
+
+    .admin-controls {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .search-input {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .add-btn,
+    .home-btn {
+        width: 100%;
+    }
+
+    .data-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .data-actions {
+        gap: 0.75rem;
+    }
+
+    .edit-btn,
+    .delete-btn {
+        flex: 1;
+    }
+
+    .form-panel {
+        padding: 1.25rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .save-btn,
+    .cancel-btn {
+        width: 100%;
+    }
+
+    .data-grid {
+        max-height: 60vh;
+    }
 }

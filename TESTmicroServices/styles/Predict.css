@@ -1,24 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Sarabun:wght@400;500;600&display=swap');
+
+:root {
+    --orange:       #f97316;
+    --orange-dark:  #ea580c;
+    --orange-pale:  #fff7ed;
+    --orange-light: #fed7aa;
+    --cream:        #fdf6ee;
+    --border:       #e8d5c0;
+    --text:         #1c1009;
+    --text-muted:   #78716c;
+    --shadow:       rgba(249, 115, 22, 0.18);
+}
+
 * {
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Sarabun', Arial, sans-serif;
 }
 
 body {
     margin: 0;
-    background-color: #ffffff;
+    background-color: var(--cream);
+    background-image:
+        radial-gradient(ellipse 55% 45% at 10% 15%, #fde8d0 0%, transparent 60%),
+        radial-gradient(ellipse 45% 50% at 90% 85%, #fde8d0 0%, transparent 55%);
+    min-height: 100vh;
 }
 
+/* ── Navbar ── */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
     height: 80px;
-    border-bottom: 1px solid #ccc;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 16px rgba(249, 115, 22, 0.07);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .logo img {
     max-height: 60px;
+    filter: drop-shadow(0 2px 8px var(--shadow));
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: rotate(-6deg) scale(1.07);
 }
 
 .nav-links {
@@ -28,8 +59,10 @@ body {
 }
 
 .select {
-    color: #1d4ed8;
+    color: var(--orange-dark);
     font-size: 0.9rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
 }
 
 .input-search {
@@ -38,15 +71,37 @@ body {
     height: 2.5rem;
     padding: 0 0.75rem;
     border-radius: 1rem;
-    color: #000;
-    border: 1px solid #000000;
+    color: var(--text);
+    border: 1.5px solid var(--border);
+    background: var(--orange-pale);
+    font-family: 'Sarabun', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.input-search:focus {
+    border-color: var(--orange);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.13);
 }
 
 .search-btn {
     font-size: 0.90rem;
-    color: #000;
+    color: var(--text);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    transition: color 0.2s ease;
 }
 
+.search-btn:hover {
+    color: var(--orange);
+}
+
+/* ── Predict Container ── */
 .predict-container {
     display: flex;
     flex-direction: column;
@@ -57,17 +112,20 @@ body {
     width: 100%;
 }
 
+/* ── Message Bar ── */
 .message-bar {
     width: 100%;
     max-width: 1200px;
     padding: 1rem;
     margin-bottom: 1rem;
-    background-color: #f0f9ff;
-    border: 1px solid #0ea5e9;
-    border-radius: 0.5rem;
-    color: #0c4a6e;
+    background-color: rgba(249, 115, 22, 0.08);
+    border: 1.5px solid var(--orange-light);
+    border-radius: 1rem;
+    color: var(--orange-dark);
     text-align: center;
     font-size: 0.9rem;
+    font-family: 'Nunito', sans-serif;
+    animation: slideUp 0.45s ease both;
 }
 
 .message-bar.success {
@@ -82,6 +140,7 @@ body {
     color: #dc2626;
 }
 
+/* ── Main Layout ── */
 .main-layout {
     display: flex;
     align-items: center;
@@ -90,19 +149,27 @@ body {
     max-width: 1200px;
 }
 
+/* ── Gray Box (Upload Area) ── */
 .gray-box {
     flex: 1;
     max-width: 45rem;
     aspect-ratio: 5 / 3;
-    background-color: #b3b3b3;
+    background-color: #e8e8e8;
     position: relative;
     overflow: hidden;
-    border-radius: 1rem;
+    border-radius: 1.5rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 2px dashed var(--border);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 20px 60px var(--shadow);
+}
+
+.gray-box:hover {
+    border-color: var(--orange);
+    background-color: #f0f0f0;
 }
 
 .predict-image-container {
@@ -116,60 +183,82 @@ body {
     display: flex;
     gap: 1rem;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
+/* ── Buttons ── */
 .predict-btn {
-    background-color: #1d4ed8;
+    background: linear-gradient(135deg, var(--orange), #fb923c);
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
+    border-radius: 12px;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 16px var(--shadow);
+    transition: all 0.2s ease;
 }
 
 .predict-btn:hover:not(:disabled) {
-    background-color: #1e40af;
+    background: linear-gradient(135deg, var(--orange-dark), var(--orange));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--shadow);
+}
+
+.predict-btn:active:not(:disabled) {
+    transform: translateY(0);
 }
 
 .predict-btn:disabled {
-    background-color: #9ca3af;
+    background: #9ca3af;
     cursor: not-allowed;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
 .change-image-btn {
-    background-color: #6b7280;
+    background-color: var(--text-muted);
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
+    border-radius: 12px;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
 }
 
 .change-image-btn:hover:not(:disabled) {
-    background-color: #4b5563;
+    background-color: var(--text);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.change-image-btn:active:not(:disabled) {
+    transform: translateY(0);
 }
 
 .change-image-btn:disabled {
     background-color: #9ca3af;
     cursor: not-allowed;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
 .gray-box .upload-prompt {
     text-align: center;
-    color: #ffffff;
+    color: var(--text);
     font-size: 1.2rem;
-    font-weight: 500;
+    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
     pointer-events: none;
 }
 
 .gray-box .upload-prompt p {
     margin: 0.5rem 0;
+    color: var(--text-muted);
 }
 
 .cat-center {
@@ -188,26 +277,32 @@ body {
     justify-content: center;
 }
 
+/* ── Result Box ── */
 .result-box {
     flex: 1;
     max-width: 30rem;
-    padding: 1.25rem;
-    color: #000;
+    padding: 2rem 1.5rem;
+    color: var(--text);
     font-size: 1.75rem;
-    background-color: #f8f9fa;
-    border-radius: 1rem;
-    border: 1px solid #e9ecef;
+    background-color: #fff;
+    border-radius: 1.5rem;
+    border: 1.5px solid var(--border);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 20px 60px var(--shadow);
+    animation: slideUp 0.45s ease both;
+    font-family: 'Nunito', sans-serif;
 }
 
 .result-box.loading {
-    background-color: #fff3cd;
-    border-color: #ffc107;
-    color: #856404;
+    background-color: var(--orange-pale);
+    border-color: var(--orange-light);
+    color: var(--orange-dark);
 }
 
 .result-text {
     margin: 1.5rem 0;
     line-height: 1.4;
+    color: var(--text);
+    font-family: 'Sarabun', sans-serif;
 }
 
 .result-text:first-child {
@@ -218,39 +313,59 @@ body {
     margin-bottom: 0;
 }
 
-/* Cat Personal Section Styles */
+.result-box h2 {
+    margin-bottom: 1rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: var(--text);
+}
+
+.font-size {
+    font-size: 1rem;
+    margin: 0.4rem 0;
+    font-family: 'Sarabun', sans-serif;
+}
+
+/* ── Cat Personal Section ── */
 .cat-personal-section {
     margin: 1.5rem 0;
-    padding: 1rem;
-    background-color: #fff7ed;
-    border-radius: 0.5rem;
-    border: 1px solid #fed7aa;
+    padding: 1.25rem;
+    background-color: var(--orange-pale);
+    border-radius: 0.75rem;
+    border: 1.5px solid var(--orange-light);
+    box-shadow: 0 2px 8px var(--shadow);
 }
 
 .personal-title {
-    font-weight: bold;
-    color: #ea580c;
-    margin: 0 0 0.5rem 0 !important;
+    font-weight: 900;
+    color: var(--orange-dark);
+    margin: 0 0 0.75rem 0 !important;
     font-size: 1.2rem;
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: 0.05rem;
 }
 
 .personal-content {
-    color: #1c1009;
+    color: var(--text);
     line-height: 1.6;
     margin: 0 !important;
     font-size: 1rem;
+    font-family: 'Sarabun', sans-serif;
 }
 
 .price-info {
-    color: #059669;
-    font-weight: bold;
-    background-color: #f0fdf4;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    border: 1px solid #bbf7d0;
+    color: var(--orange-dark);
+    font-weight: 700;
+    background-color: rgba(249, 115, 22, 0.15);
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: 1.5px solid var(--orange-light);
+    font-family: 'Nunito', sans-serif;
+    margin-top: 0.5rem;
 }
 
-/* Cat Reference Image Styles */
+/* ── Cat Reference Image ── */
 .cat-reference-image {
     margin: 1.5rem 0;
     text-align: center;
@@ -260,23 +375,229 @@ body {
     max-width: 100%;
     height: auto;
     max-height: 200px;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px var(--shadow);
     margin-top: 0.5rem;
     object-fit: cover;
+    border: 2px solid white;
 }
 
-.result-box h2 {
-    margin-bottom: 1rem;
+/* ── GPS Control Styles ── */
+.result-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.font-size {
+.gps-control {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 20px 60px var(--shadow);
+    animation: slideUp 0.45s ease both;
+}
+
+.gps-control h3 {
+    margin: 0 0 1rem 0;
+    color: var(--text);
     font-size: 1rem;
-    margin: 0.4rem 0;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
 }
 
-@media (max-width: 768px) {
+.gps-status {
+    text-align: center;
+}
 
+.gps-status.granted {
+    color: var(--orange);
+}
+
+.gps-status p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-family: 'Sarabun', sans-serif;
+}
+
+.coordinates {
+    font-family: monospace;
+    background: var(--orange-pale);
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    color: var(--text) !important;
+    border: 1px solid var(--orange-light);
+}
+
+.gps-btn {
+    background: linear-gradient(135deg, var(--orange), #fb923c);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--shadow);
+    transition: all 0.2s ease;
+}
+
+.gps-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--orange-dark), var(--orange));
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px var(--shadow);
+}
+
+.gps-btn:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.gps-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.refresh-gps-btn {
+    background-color: var(--orange-pale);
+    color: var(--orange);
+    border: 1.5px solid var(--orange-light);
+    padding: 0.375rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.refresh-gps-btn:hover:not(:disabled) {
+    background-color: var(--orange-light);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.refresh-gps-btn:disabled {
+    background-color: #9ca3af;
+    color: white;
+    cursor: not-allowed;
+}
+
+.view-location-btn {
+    background: linear-gradient(135deg, var(--orange), #fb923c);
+    color: white;
+    border: none;
+    padding: 0.375rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 2px 8px var(--shadow);
+    transition: all 0.2s ease;
+}
+
+.view-location-btn:hover {
+    background: linear-gradient(135deg, var(--orange-dark), var(--orange));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.gps-tip {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin: 0.5rem 0;
+    font-family: 'Sarabun', sans-serif;
+}
+
+/* ── Map Section ── */
+.map-section {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 2rem;
+}
+
+.predict-map-container {
+    background: #fff;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 20px 60px var(--shadow);
+    border: 1.5px solid var(--border);
+    animation: slideUp 0.45s ease both;
+}
+
+.predict-map-container h3 {
+    color: var(--text);
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+}
+
+.location-info {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem;
+    background: var(--orange-pale);
+    border-radius: 0.75rem;
+    border: 1.5px solid var(--orange-light);
+}
+
+.location-info p {
+    margin: 0;
+    color: var(--text);
+    font-size: 0.875rem;
+    font-family: monospace;
+}
+
+.google-maps-btn {
+    background: linear-gradient(135deg, var(--orange), #fb923c);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--shadow);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.google-maps-btn:hover {
+    background: linear-gradient(135deg, var(--orange-dark), var(--orange));
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px var(--shadow);
+}
+
+/* ── Animations ── */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Fix Leaflet CSS issues for predict map */
+#predict-map .leaflet-pane img, 
+#predict-map .leaflet-tile-container img {
+    max-width: none !important;
+    max-height: none !important;
+    box-shadow: none !important;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
     .navbar {
         flex-direction: column;
         height: auto;
@@ -290,6 +611,10 @@ body {
         align-items: stretch;
     }
 
+    .input-search {
+        width: 100%;
+    }
+
     .main-layout {
         flex-direction: column;
         gap: 1.5rem;
@@ -297,6 +622,7 @@ body {
 
     .gray-box {
         width: 100%;
+        max-width: 100%;
     }
 
     .result-box {
@@ -304,13 +630,44 @@ body {
         max-width: 100%;
     }
 
-    .input-search {
+    .predict-controls {
+        flex-direction: column;
+    }
+
+    .predict-btn,
+    .change-image-btn {
         width: 100%;
+    }
+
+    .location-info {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .google-maps-btn {
+        width: 100%;
+    }
+
+    .gps-actions {
+        flex-direction: column;
+    }
+
+    .refresh-gps-btn,
+    .view-location-btn {
+        width: 100%;
+    }
+
+    .predict-map-container {
+        padding: 1.5rem;
+    }
+
+    .predict-map-container h3 {
+        font-size: 1.1rem;
     }
 }
 
 @media (max-width: 1024px) {
-
     .main-layout {
         gap: 2rem;
     }
@@ -321,192 +678,5 @@ body {
 
     .result-box {
         max-width: 100%;
-    }
-}
-
-/* GPS Control Styles */
-.result-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.gps-control {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin-top: 1rem;
-}
-
-.gps-control h3 {
-    margin: 0 0 1rem 0;
-    color: #374151;
-    font-size: 1rem;
-}
-
-.gps-status {
-    text-align: center;
-}
-
-.gps-status.granted {
-    color: #059669;
-}
-
-.gps-status p {
-    margin: 0.5rem 0;
-    font-size: 0.9rem;
-}
-
-.coordinates {
-    font-family: monospace;
-    background: #f3f4f6;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    color: #6b7280 !important;
-}
-
-.gps-btn {
-    background-color: #059669;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.gps-btn:hover:not(:disabled) {
-    background-color: #047857;
-}
-
-.gps-btn:disabled {
-    background-color: #9ca3af;
-    cursor: not-allowed;
-}
-
-.gps-actions {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-    justify-content: center;
-}
-
-.refresh-gps-btn {
-    background-color: #0ea5e9;
-    color: white;
-    border: none;
-    padding: 0.375rem 0.75rem;
-    border-radius: 0.25rem;
-    font-size: 0.75rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.refresh-gps-btn:hover:not(:disabled) {
-    background-color: #0284c7;
-}
-
-.refresh-gps-btn:disabled {
-    background-color: #9ca3af;
-    cursor: not-allowed;
-}
-
-.view-location-btn {
-    background-color: #10b981;
-    color: white;
-    border: none;
-    padding: 0.375rem 0.75rem;
-    border-radius: 0.25rem;
-    font-size: 0.75rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.view-location-btn:hover {
-    background-color: #059669;
-}
-
-.gps-tip {
-    font-size: 0.75rem;
-    color: #6b7280;
-    font-style: italic;
-    margin: 0.25rem 0;
-}
-
-/* Map Section Styles */
-.map-section {
-    width: 100%;
-    max-width: 1200px;
-    margin-top: 2rem;
-}
-
-.predict-map-container {
-    background: white;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    border: 1px solid #e5e7eb;
-}
-
-.predict-map-container h3 {
-    color: #374151;
-    margin: 0 0 1rem 0;
-    font-size: 1.25rem;
-}
-
-.location-info {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background: #f9fafb;
-    border-radius: 0.375rem;
-    border: 1px solid #e5e7eb;
-}
-
-.location-info p {
-    margin: 0;
-    color: #6b7280;
-    font-size: 0.875rem;
-    font-family: monospace;
-}
-
-.google-maps-btn {
-    background-color: #1d4ed8;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    white-space: nowrap;
-}
-
-.google-maps-btn:hover {
-    background-color: #1e40af;
-}
-
-/* Fix Leaflet CSS issues for predict map */
-#predict-map .leaflet-pane img, 
-#predict-map .leaflet-tile-container img {
-    max-width: none !important;
-    max-height: none !important;
-    box-shadow: none !important;
-}
-
-@media (max-width: 768px) {
-    .location-info {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
-    }
-    
-    .google-maps-btn {
-        width: 100%;
     }
 }
