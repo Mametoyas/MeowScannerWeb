@@ -1,0 +1,7 @@
+# python 3.11
+Flask
+flask_cors
+torch 
+torchvision
+opencv-python
+pillow-heif

@@ -1,0 +1,8 @@
+Object detection
+https://universe.roboflow.com/youssef/cat-bg5f4
+https://universe.roboflow.com/project-c9wti/test-hmylv
+https://universe.roboflow.com/dogdetection2/cats_v2
+https://universe.roboflow.com/objdet-beybi/fullcat
+https://universe.roboflow.com/summer-2nyu3/708
+
+Classification
