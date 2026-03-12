@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { getUserData, logoutUser } from '../../utils/auth'
 import ProtectedRoute from '@/components/ProtectedRoute'
+import Navbar from '@/components/main/MainNavbar'
 import Link from 'next/link'
 import '../../styles/Main.css'
 
@@ -49,23 +50,8 @@ export default function MainPage() {
 
   return (
     <ProtectedRoute>
+      <Navbar onLogout={handleLogout} userName={user?.name} />
       <div className="main-container">
-        {/* Header */}
-        <header className="main-header">
-          <div className="header-content">
-            <div className="logo">
-              <img src="/images/logo.png" alt="MeowScanner" />
-              <h1>MEOW SCANNER</h1>
-            </div>
-            <div className="user-info">
-              <span>Welcome, {user?.name}</span>
-              <button className="logout-btn" onClick={handleLogout}>
-                Logout
-              </button>
-            </div>
-          </div>
-        </header>
-
         {/* Main Content */}
         <main className="main-content">
           
