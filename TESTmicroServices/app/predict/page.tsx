@@ -5,7 +5,7 @@ import PredictImage from "@/components/predict/PredictImage";
 import PredictResult from "@/components/predict/PredictResult";
 import { PredictionData } from "@/components/predict/types/predict";
 import Navbar from "@/components/predict/Navbar";
-import { modelService, dataService } from "@/components/api";
+import { modelService, dataService, meowdexService } from "@/components/api";
 import { authUtils } from "@/components/auth";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
@@ -203,12 +203,29 @@ export default function PredictPage() {
       // Call Model API for prediction
       const result = await modelService.predict(selectedImage);
       
+      // Get cat info from meowdex if breed is detected
+      let catInfo = null;
+      if (result.detections?.[0] && result.detections[0].class !== "ไม่เจอแมว") {
+        try {
+          const meowdexResult = await meowdexService.getCatInfo(result.detections[0].class);
+          if (meowdexResult.success) {
+            catInfo = meowdexResult.data;
+          }
+        } catch (error) {
+          console.log('Failed to fetch meowdex data:', error);
+        }
+      }
+      
       const predictionData: PredictionData = {
         imageUrl: `data:image/jpeg;base64,${result.imagedetect}`,
         catCount: result.detections?.[0]?.class === "ไม่เจอแมว" ? 0 : (result.bboxes?.length || result.detections?.length || 0),
         breed: result.detections?.[0]?.class || "Unknown",
         features: result.detections?.[0]?.class === "ไม่เจอแมว" ? "ไม่พบแมวในภาพ" : `Confidence: ${(result.detections?.[0]?.conf * 100 || 0).toFixed(1)}%`,
-        confidence: (result.detections?.[0]?.conf * 100 || 0)
+        confidence: (result.detections?.[0]?.conf * 100 || 0),
+        catPersonal: catInfo?.CatPersonal || null,
+        catDetails: catInfo?.CatDetails || null,
+        prices: catInfo?.Prices || null,
+        imgURL: catInfo?.ImgURL || null
       };
       
       setPrediction(predictionData);

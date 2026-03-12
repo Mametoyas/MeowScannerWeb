@@ -31,7 +31,17 @@ export default function PredictResult({ data, loading }: PredictResultProps) {
     <div className="result-box">
       <p className="result-text">จำนวนแมว : {data.catCount} ตัว</p>
       <p className="result-text">พันธุ์แมว : {data.breed}</p>
-      <p className="result-text">จุดเด่น : {data.features}</p>
+      
+      {/* แสดงจุดเด่นจาก meowdex */}
+      {data.catPersonal ? (
+        <div className="cat-personal-section">
+          <p className="result-text personal-title">จุดเด่น :</p>
+          <p className="result-text personal-content">{data.catPersonal}</p>
+        </div>
+      ) : (
+        <p className="result-text">จุดเด่น : {data.features}</p>
+      )}
+      
       <p className="result-text">ค่าความมั่นใจ : {data.confidence.toFixed(1)}%</p>
     </div>
   );

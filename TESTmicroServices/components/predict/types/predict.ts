@@ -4,4 +4,8 @@ export interface PredictionData {
   breed: string;
   features: string;
   confidence: number;
+  catPersonal?: string;
+  catDetails?: string;
+  prices?: string;
+  imgURL?: string;
 }

@@ -37,6 +37,18 @@ export const modelService = {
   }
 };
 
+export const meowdexService = {
+  async getCatInfo(catName: string) {
+    const response = await fetch(`/api/meowdex?catName=${encodeURIComponent(catName)}`);
+    return response.json();
+  },
+
+  async getCatInfoById(catId: string) {
+    const response = await fetch(`/api/meowdex?catId=${encodeURIComponent(catId)}`);
+    return response.json();
+  }
+};
+
 export const dataService = {
   async addMapLocation(uid: string, longitude: number, latitude: number, catId: string) {
     const response = await fetch(`${DATABASE_API_URL}/add-location`, {
