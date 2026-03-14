@@ -78,6 +78,7 @@ body {
 .quiz-layout {
     width: 100%;
     max-width: 56rem;
+    max-height: 700px;
     margin: 0 auto;
     padding: 1.25rem;
     background-color: #b3b3b3;
@@ -112,7 +113,7 @@ body {
 .cat-image {
     width: 100%;
     max-width: 280px;
-    height: auto;
+    height: 80%;
     border-radius: 0.4rem;
     background-color: white;
     padding: 0.5rem;
@@ -126,6 +127,7 @@ body {
     background-color: white;
     border-radius: 0.4rem;
     overflow: hidden;
+    margin: 0.5rem auto;
 }
 
 .quiz-form-col h1 {
