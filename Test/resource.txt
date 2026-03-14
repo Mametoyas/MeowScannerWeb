@@ -1,0 +1,212 @@
+*** Settings ***
+Documentation     Resource file for MeowScanner Web Testing.
+Library           SeleniumLibrary
+Library           OperatingSystem
+
+*** Variables ***
+${SERVER}              test-deploy-se-4aqv.vercel.app
+${BROWSER}             Chrome
+${DELAY}               0.3
+${BASE_URL}            https://${SERVER}
+${LOGIN_URL}           ${BASE_URL}/login
+${REGISTER_URL}        ${BASE_URL}/register
+${MAIN_URL}            ${BASE_URL}/main
+${PREDICT_URL}         ${BASE_URL}/predict
+${PREFERENCE_URL}      ${BASE_URL}/preference
+${SEARCH_URL}          ${BASE_URL}/search
+${ADMIN_URL}           ${BASE_URL}/admin
+${CATMAP_URL}          ${BASE_URL}/catmap
+${VALID_USER}          zTER
+${VALID_PASSWORD}      0991829676c
+${INVALID_USER}        wronguser
+${INVALID_PASSWORD}    wrongpass
+${TIMEOUT}             10s
+
+*** Keywords ***
+# ==================== Browser ====================
+Open Browser To Login Page
+    Open Browser    ${LOGIN_URL}    ${BROWSER}
+    Maximize Browser Window
+    Set Selenium Speed    ${DELAY}
+    Wait Until Page Contains Element    name=username    ${TIMEOUT}
+
+Open Browser To Register Page
+    Open Browser    ${REGISTER_URL}    ${BROWSER}
+    Maximize Browser Window
+    Set Selenium Speed    ${DELAY}
+    Wait Until Page Contains Element    name=name    ${TIMEOUT}
+
+Open Browser To Search Page
+    Open Browser    ${SEARCH_URL}    ${BROWSER}
+    Maximize Browser Window
+    Set Selenium Speed    ${DELAY}
+    Wait Until Page Loads
+
+Open Browser To URL
+    [Arguments]    ${url}
+    Open Browser    ${url}    ${BROWSER}
+    Maximize Browser Window
+    Set Selenium Speed    ${DELAY}
+    Sleep    2s
+
+Wait Until Page Loads
+    Sleep    2s
+
+# ==================== Login ====================
+Input Username
+    [Arguments]    ${username}
+    Input Text    name=username    ${username}
+
+Input Password
+    [Arguments]    ${password}
+    Input Text    name=password    ${password}
+
+Click Login Button
+    Click Element    css=.login-btn
+
+Login With Valid Credentials
+    Input Username    ${VALID_USER}
+    Input Password    ${VALID_PASSWORD}
+    Click Login Button
+    Wait Until Location Contains    /main    ${TIMEOUT}
+
+Login As Admin
+    [Documentation]    Login with admin credentials (adjust if different)
+    Input Username    admin
+    Input Password    admin
+    Click Login Button
+    Wait Until Location Contains    /main    ${TIMEOUT}
+
+Should Be On Login Page
+    Wait Until Location Contains    /login    ${TIMEOUT}
+
+Should Be On Main Page
+    Wait Until Location Contains    /main    ${TIMEOUT}
+
+Should Show Login Error
+    Wait Until Page Contains Element    css=.message.error    ${TIMEOUT}
+
+# ==================== Register ====================
+Input Register Name
+    [Arguments]    ${name}
+    Input Text    name=name    ${name}
+
+Input Register Username
+    [Arguments]    ${username}
+    Input Text    name=username    ${username}
+
+Input Register Password
+    [Arguments]    ${password}
+    Input Text    name=password    ${password}
+
+Input Register Confirm Password
+    [Arguments]    ${confirm}
+    Input Text    name=confirmPassword    ${confirm}
+
+Click Register Button
+    Click Element    css=.confirmed-btn
+
+Password Should Show Error
+    Wait Until Page Contains Element    css=.password-requirements    ${TIMEOUT}
+
+Password Should Show Valid
+    Page Should Not Contain Element    css=.password-requirements .invalid
+
+Confirm Password Should Show Mismatch
+    Wait Until Page Contains Element    css=.error-text    ${TIMEOUT}
+
+# ==================== Search ====================
+Input Search Keyword
+    [Arguments]    ${keyword}
+    Input Text    css=.input-search    ${keyword}
+
+Clear Search
+    Clear Element Text    css=.input-search
+
+Should Show Cat Results
+    Wait Until Page Contains Element    css=.cat-card    ${TIMEOUT}
+
+Should Show No Results
+    Wait Until Page Contains Element    css=.no-results    ${TIMEOUT}
+
+# ==================== Predict ====================
+Click Upload Area
+    Click Element    css=.gray-box
+
+Upload Cat Image
+    [Arguments]    ${filepath}
+    Choose File    css=input[type="file"]    ${filepath}
+
+Click Predict Button
+    Click Element    css=.predict-btn
+
+Click Change Image
+    Click Element    css=.change-image-btn
+
+Should Show Prediction Result
+    Wait Until Page Contains Element    css=.result-box    ${TIMEOUT}
+
+# ==================== Preference ====================
+Select Radio Option
+    [Arguments]    ${name}    ${value}
+    Click Element    css=input[name="${name}"][value="${value}"]
+
+Click Submit Quiz
+    Click Element    css=.submit-btn
+
+Should Show Recommendation
+    Wait Until Page Contains Element    css=.result-card    ${TIMEOUT}
+
+Click Retry Quiz
+    Click Element    css=.retry-btn
+
+# ==================== Admin ====================
+Click Tab
+    [Arguments]    ${tab_name}
+    Click Element    xpath=//button[contains(@class,'tab-btn') and contains(text(),'${tab_name}')]
+
+Click Add New Button
+    Click Element    css=.add-btn
+
+Click Save Button
+    Click Element    css=.save-btn
+
+Click Cancel Button
+    Click Element    css=.cancel-btn
+
+Click Edit On Card
+    [Arguments]    ${index}=1
+    ${elements}=    Get WebElements    css=.edit-btn
+    Click Element    ${elements}[${index - 1}]
+
+Click Delete On Card
+    [Arguments]    ${index}=1
+    ${elements}=    Get WebElements    css=.delete-btn
+    Click Element    ${elements}[${index - 1}]
+
+Accept Delete Confirmation
+    Handle Alert    ACCEPT
+
+Dismiss Delete Confirmation
+    Handle Alert    DISMISS
+
+Should Show Admin Success
+    Wait Until Page Contains Element    css=.message.success    ${TIMEOUT}
+
+# ==================== Navigation ====================
+Click Logout Button
+    Click Element    css=.logout-btn
+
+Click Home Button
+    Click Element    css=.home-btn
+
+Navigate To Feature
+    [Arguments]    ${path}
+    Go To    ${BASE_URL}${path}
+    Wait Until Page Loads
+
+Clear Session Storage
+    Execute Javascript    window.sessionStorage.clear(); window.localStorage.clear();
+
+Check Redirected To Login
+    Wait Until Location Contains    /login    ${TIMEOUT}
