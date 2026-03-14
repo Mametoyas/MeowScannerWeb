@@ -274,7 +274,6 @@ body {
     font-weight: 800;
     color: white;
     cursor: pointer;
-    margin-top: 2rem;
     transition: all 0.3s ease;
     box-shadow: 0 4px 12px var(--shadow);
     font-family: 'Nunito', sans-serif;
