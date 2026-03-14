@@ -76,7 +76,7 @@ TC-PF07 Go To Predict After Result
     Sleep    3s
     Should Show Recommendation
     # TODO: แก้ selector ให้ตรง
-    Click Element    css=.scan-btn
+    Click Element    class=predict-btn
     Sleep    2s
     Location Should Contain    /predict
 

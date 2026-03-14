@@ -17,14 +17,14 @@ TC-S02 Search By CatPersonal
     [Documentation]    EP valid: พิมพ์คำจาก personality
     Sleep    2s
     # TODO: แก้ keyword ให้ตรงกับข้อมูลจริงในระบบ
-    Input Search Keyword    friendly
+    Input Search Keyword    หูพับ
     Sleep    1s
     Should Show Cat Results
 
 TC-S03 Search By CatDetails
     [Documentation]    EP valid: พิมพ์คำจาก details
     Sleep    2s
-    Input Search Keyword    Thailand
+    Input Search Keyword    แมวชั้นสูง
     Sleep    1s
     Should Show Cat Results
 

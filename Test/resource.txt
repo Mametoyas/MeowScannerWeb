@@ -121,7 +121,9 @@ Input Search Keyword
     Input Text    css=.input-search    ${keyword}
 
 Clear Search
-    Clear Element Text    css=.input-search
+    Click Element    css=.input-search
+    Press Keys       css=.input-search    CTRL+A
+    Press Keys       css=.input-search    BACKSPACE
 
 Should Show Cat Results
     Wait Until Page Contains Element    css=.cat-card    ${TIMEOUT}
@@ -195,7 +197,7 @@ Should Show Admin Success
 
 # ==================== Navigation ====================
 Click Logout Button
-    Click Element    css=.logout-btn
+    Click Element    class=logout-nav-btn
 
 Click Home Button
     Click Element    css=.home-btn
