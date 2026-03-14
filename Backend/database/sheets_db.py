@@ -161,7 +161,7 @@ class GoogleSheetsDB:
         except Exception as e:
             return {'success': False, 'error': str(e)}
     
-    def add_cat(self, cat_id, cat_name, cat_personal, cat_details):
+    def add_cat(self, cat_id, cat_name, cat_personal, cat_details, prices=None, img_url=None):
         """Add new cat to MeowDex sheet"""
         try:
             # Check if cat ID already exists
@@ -170,20 +170,20 @@ class GoogleSheetsDB:
                 if record.get('CatID') == cat_id:
                     return {'success': False, 'error': 'Cat ID already exists'}
             
-            # Add new cat
-            self.meowdex_sheet.append_row([cat_id, cat_name, cat_personal, cat_details])
+            # Add new cat with all fields
+            self.meowdex_sheet.append_row([cat_id, cat_name, cat_personal, cat_details, prices or '', img_url or ''])
             return {'success': True, 'message': 'Cat added successfully'}
         except Exception as e:
             return {'success': False, 'error': str(e)}
     
-    def update_cat(self, cat_id, cat_name, cat_personal, cat_details):
+    def update_cat(self, cat_id, cat_name, cat_personal, cat_details, prices=None, img_url=None):
         """Update existing cat in MeowDex sheet"""
         try:
             records = self.meowdex_sheet.get_all_records()
             for i, record in enumerate(records, start=2):  # Start from row 2 (skip header)
                 if record.get('CatID') == cat_id:
-                    # Update the row
-                    self.meowdex_sheet.update(f'A{i}:D{i}', [[cat_id, cat_name, cat_personal, cat_details]])
+                    # Update the row with all fields
+                    self.meowdex_sheet.update(f'A{i}:F{i}', [[cat_id, cat_name, cat_personal, cat_details, prices or '', img_url or '']])
                     return {'success': True, 'message': 'Cat updated successfully'}
             
             return {'success': False, 'error': 'Cat not found'}
