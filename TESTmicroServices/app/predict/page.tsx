@@ -203,16 +203,23 @@ export default function PredictPage() {
       // Call Model API for prediction
       const result = await modelService.predict(selectedImage);
       
+      console.log('Prediction result from model:', result);
+      
       // Get cat info from meowdex if breed is detected
       let catInfo = null;
       if (result.detections?.[0] && result.detections[0].class !== "ไม่เจอแมว") {
         try {
+          console.log('Fetching cat info for:', result.detections[0].class);
           const meowdexResult = await meowdexService.getCatInfo(result.detections[0].class);
+          console.log('Meowdex result:', meowdexResult);
           if (meowdexResult.success) {
             catInfo = meowdexResult.data;
+            console.log('Cat info found:', catInfo);
+          } else {
+            console.log('Cat info not found in database');
           }
         } catch (error) {
-          console.log('Failed to fetch meowdex data:', error);
+          console.error('Failed to fetch meowdex data:', error);
         }
       }
       
@@ -220,7 +227,7 @@ export default function PredictPage() {
         imageUrl: `data:image/jpeg;base64,${result.imagedetect}`,
         catCount: result.detections?.[0]?.class === "ไม่เจอแมว" ? 0 : (result.bboxes?.length || result.detections?.length || 0),
         breed: result.detections?.[0]?.class || "Unknown",
-        features: result.detections?.[0]?.class === "ไม่เจอแมว" ? "ไม่พบแมวในภาพ" : `Confidence: ${(result.detections?.[0]?.conf * 100 || 0).toFixed(1)}%`,
+        features: catInfo?.CatPersonal || (result.detections?.[0]?.class === "ไม่เจอแมว" ? "ไม่พบแมวในภาพ" : ""),
         confidence: (result.detections?.[0]?.conf * 100 || 0),
         catPersonal: catInfo?.CatPersonal || null,
         catDetails: catInfo?.CatDetails || null,
@@ -279,7 +286,7 @@ export default function PredictPage() {
       
     } catch (error) {
       console.error('Prediction failed:', error);
-      setMessage('Prediction failed. Please try again.');
+      setMessage('Prediction failed, model API gateway error.');
     } finally {
       setLoading(false);
     }
@@ -306,37 +313,34 @@ export default function PredictPage() {
             
             {/* GPS Control */}
             <div className="gps-control">
-              <h3>📍 Location Services</h3>
               {gpsPermission === 'granted' && currentLocation ? (
                 <div className="gps-status granted">
-                  <p>✅ GPS Enabled</p>
-                  <p className="coordinates">📍 {currentLocation.lat.toFixed(8)}, {currentLocation.lon.toFixed(8)}</p>
+                  <p>GPS Enabled</p>
+                  <p className="coordinates">{currentLocation.lat.toFixed(8)}, {currentLocation.lon.toFixed(8)}</p>
                   <div className="gps-actions">
                     <button 
                       onClick={requestGPSPermission}
                       className="refresh-gps-btn"
                       disabled={loading}
                     >
-                      🔄 Refresh GPS
+                      Refresh GPS
                     </button>
                     <button 
                       onClick={() => window.open(`https://www.google.com/maps?q=${currentLocation.lat},${currentLocation.lon}`, '_blank')}
                       className="view-location-btn"
                     >
-                      🗺️ View Location
+                      View Location
                     </button>
                   </div>
                 </div>
               ) : (
                 <div className="gps-status">
-                  <p>📍 Enable GPS to save cat locations</p>
-                  <p className="gps-tip">💡 Use mobile device for better GPS accuracy</p>
                   <button 
                     onClick={requestGPSPermission}
                     className="gps-btn"
                     disabled={loading}
                   >
-                    🌐 Enable High-Accuracy GPS
+                    Enable High-Accuracy GPS
                   </button>
                 </div>
               )}

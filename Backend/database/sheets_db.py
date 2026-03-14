@@ -35,7 +35,7 @@ class GoogleSheetsDB:
         # Initialize all sheets
         self.user_sheet = self._get_or_create_sheet('User', ['ID', 'Name', 'Username', 'Password', 'Role'])
         self.map_sheet = self._get_or_create_sheet('Map', ['ID', 'UID', 'Longitude', 'Latitude', 'CatID'])
-        self.meowdex_sheet = self._get_or_create_sheet('MeowDex', ['CatID', 'CatName', 'CatPersonal', 'CatDetails', 'Prices(THB)', 'ImgURL'])
+        self.meowdex_sheet = self._get_or_create_sheet('MeowDex', ['CatID', 'CatName', 'CatPersonal', 'CatDetails', 'Prices', 'ImgURL'])
         self.history_sheet = self._get_or_create_sheet('History', ['ID', 'UserID', 'CatID', 'Timestamp'])
         self.personal_sheet = self._get_or_create_sheet('Personal', ['Match_ID', 'Housing', 'Lifestyle', 'Personality', 'User_Style', 'Recommended_Cat', 'Why_Match'])
         self.user_personal_sheet = self._get_or_create_sheet('UserPersonal', ['ID', 'UID', 'Housing', 'Lifestyle', 'Personality', 'Recommended_Cat', 'Match_ID'])

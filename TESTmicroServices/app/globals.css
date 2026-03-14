@@ -24,3 +24,19 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Global Error and Warning Styles - Text Only */
+.error-message,
+.warning-message,
+.message.error {
+  color: #dc2626 !important;
+}
+
+.success-message,
+.message.success {
+  color: #16a34a !important;
+}
+
+.error-text {
+  color: #dc2626 !important;
+}

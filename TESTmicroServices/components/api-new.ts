@@ -37,31 +37,13 @@ export const modelService = {
 
 export const meowdexService = {
   async getCatInfo(catName: string) {
-    try {
-      const response = await fetch(`${DATABASE_API}/get-cat-by-name?cat_name=${encodeURIComponent(catName)}`);
-      const data = await response.json();
-      if (data.success && data.cat) {
-        return { success: true, data: data.cat };
-      }
-      return { success: false, message: 'Cat not found' };
-    } catch (error) {
-      console.error('Error fetching cat info:', error);
-      return { success: false, message: 'Failed to fetch cat info' };
-    }
+    const response = await fetch(`/api/meowdex?catName=${encodeURIComponent(catName)}`);
+    return response.json();
   },
 
   async getCatInfoById(catId: string) {
-    try {
-      const response = await fetch(`${DATABASE_API}/get-cat-by-id?cat_id=${encodeURIComponent(catId)}`);
-      const data = await response.json();
-      if (data.success && data.cat) {
-        return { success: true, data: data.cat };
-      }
-      return { success: false, message: 'Cat not found' };
-    } catch (error) {
-      console.error('Error fetching cat info:', error);
-      return { success: false, message: 'Failed to fetch cat info' };
-    }
+    const response = await fetch(`/api/meowdex?catId=${encodeURIComponent(catId)}`);
+    return response.json();
   }
 };
 

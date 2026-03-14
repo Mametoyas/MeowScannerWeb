@@ -11,7 +11,6 @@ export default function CatCard({ cat }: CatCardProps) {
       <div className="cat-info">
         <div className="cat-header">
           <h3>{cat.CatName}</h3>
-          <span className="cat-id">{cat.CatID}</span>
         </div>
         
         <div className="cat-personality">
@@ -25,13 +24,20 @@ export default function CatCard({ cat }: CatCardProps) {
         </div>
       </div>
       
-      <div className="cat-image-box">
-        {cat.ImgURL ? (
-          <img src={cat.ImgURL} alt={cat.CatName} />
-        ) : (
-          <div className="no-image">
-            <span>🐱</span>
-            <p>No Image</p>
+      <div className="cat-image-section">
+        <div className="cat-image-box">
+          {cat.ImgURL ? (
+            <img src={cat.ImgURL} alt={cat.CatName} />
+          ) : (
+            <div className="no-image">
+              <span>🐱</span>
+              <p>No Image</p>
+            </div>
+          )}
+        </div>
+        {cat.Prices && (
+          <div className="cat-price-below">
+            ราคา: {cat.Prices} บาท
           </div>
         )}
       </div>

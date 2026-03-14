@@ -27,6 +27,25 @@ body {
     gap: 1rem;
 }
 
+/* Admin Icon */
+.admin-icon-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.admin-icon {
+    font-size: 2rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.admin-icon-link:hover .admin-icon {
+    transform: rotate(90deg) scale(1.1);
+}
+
 .select {
     color: #1d4ed8;
     font-size: 0.9rem;

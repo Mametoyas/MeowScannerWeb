@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  database:
+    build: ./Backend/database
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+    restart: unless-stopped
+
+  model:
+    build: ./Backend/model
+    ports:
+      - "5001:5001"
+    environment:
+      - PORT=5001
+    restart: unless-stopped
+
+  frontend:
+    build: ./TESTmicroServices
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_DB_API_URL=http://database:5000
+      - NEXT_PUBLIC_MODEL_API_URL=http://model:5001
+    depends_on:
+      - database
+      - model
+    restart: unless-stopped

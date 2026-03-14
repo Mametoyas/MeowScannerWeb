@@ -7,6 +7,7 @@ export interface Cat {
   CatName: string;
   CatPersonal: string;
   CatDetails: string;
+  Prices?: string;
   ImgURL?: string;
 }
 
@@ -26,7 +27,8 @@ export default function CatList({ searchTerm }: CatListProps) {
   const fetchCats = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5001/get-cats');
+      const { DATABASE_API } = await import('../../config/api').then(m => m.getAPIUrls())
+      const response = await fetch(`${DATABASE_API}/get-cats`);
       const data = await response.json();
       
       if (response.ok && data.success) {

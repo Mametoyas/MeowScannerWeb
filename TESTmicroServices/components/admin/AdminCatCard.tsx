@@ -11,13 +11,13 @@ export default function AdminCatCard({ cat, onEdit, onDelete }: AdminCatCardProp
   return (
     <div className="cat-card">
       <div className="cat-info">
-        <h3>{cat.name}</h3>
-        <p>{cat.history}</p>
+        <h3>{cat.CatName}</h3>
+        <p>{cat.CatPersonal}</p>
         <hr />
-        <small style={{ whiteSpace: "pre-line" }}>{cat.source}</small>
+        <small style={{ whiteSpace: "pre-line" }}>{cat.CatDetails}</small>
       </div>
       <div className="cat-image-box">
-        <img src={cat.image} alt={cat.name} />
+        <img src={cat.ImgURL || '/images/cat_com.png'} alt={cat.CatName} />
       </div>
       <div className="cat-actions">
         <button onClick={onEdit} className="edit-btn">แก้ไข</button>

@@ -101,6 +101,25 @@ body {
     color: var(--orange);
 }
 
+/* ── Admin Icon ── */
+.admin-icon-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.admin-icon {
+    font-size: 2rem;
+    filter: drop-shadow(0 2px 8px var(--shadow));
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.admin-icon-link:hover .admin-icon {
+    transform: rotate(90deg) scale(1.1);
+}
+
 /* ── Predict Container ── */
 .predict-container {
     display: flex;
@@ -151,8 +170,8 @@ body {
 
 /* ── Gray Box (Upload Area) ── */
 .gray-box {
-    flex: 1;
-    max-width: 45rem;
+    flex: 2;
+    max-width: 60rem;
     aspect-ratio: 5 / 3;
     background-color: #e8e8e8;
     position: relative;
@@ -250,7 +269,7 @@ body {
 .gray-box .upload-prompt {
     text-align: center;
     color: var(--text);
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     font-family: 'Nunito', sans-serif;
     pointer-events: none;
@@ -259,6 +278,7 @@ body {
 .gray-box .upload-prompt p {
     margin: 0.5rem 0;
     color: var(--text-muted);
+    font-size: 1.1rem;
 }
 
 .cat-center {
@@ -280,16 +300,24 @@ body {
 /* ── Result Box ── */
 .result-box {
     flex: 1;
-    max-width: 30rem;
-    padding: 2rem 1.5rem;
+    max-width: 26rem;
+    width: 26rem;
+    max-height: 32rem;
+    padding: 1.5rem 1.25rem;
     color: var(--text);
-    font-size: 1.75rem;
+    font-size: 0.9rem;
     background-color: #fff;
     border-radius: 1.5rem;
     border: 1.5px solid var(--border);
     box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 20px 60px var(--shadow);
     animation: slideUp 0.45s ease both;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Sarabun', sans-serif;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .result-box.loading {
@@ -299,10 +327,14 @@ body {
 }
 
 .result-text {
-    margin: 1.5rem 0;
-    line-height: 1.4;
+    margin: 1rem 0;
+    line-height: 1.6;
     color: var(--text);
     font-family: 'Sarabun', sans-serif;
+    font-size: 1rem;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .result-text:first-child {
@@ -352,6 +384,9 @@ body {
     margin: 0 !important;
     font-size: 1rem;
     font-family: 'Sarabun', sans-serif;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .price-info {
@@ -382,12 +417,14 @@ body {
     border: 2px solid white;
 }
 
-/* ── GPS Control Styles ── */
+/* ── Result Box ── */
 .result-section {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    max-width: 26rem;
+    width: 100%;
 }
 
 .gps-control {
@@ -395,7 +432,6 @@ body {
     border: 1.5px solid var(--border);
     border-radius: 1rem;
     padding: 1.5rem;
-    margin-top: 1rem;
     box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 20px 60px var(--shadow);
     animation: slideUp 0.45s ease both;
 }

@@ -6,11 +6,21 @@ import CatImage from "@/components/register/CatImage";
 import { dataService } from "@/components/api";
 import { authUtils } from "@/components/auth";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { getAPIUrls } from "@/config/api";
 
 interface RecommendationResult {
   match_id: string;
   recommended_cat: string;
   why_match: string;
+}
+
+interface CatData {
+  CatID: string;
+  CatName: string;
+  CatPersonal: string;
+  CatDetails: string;
+  Prices?: string;
+  ImgURL?: string;
 }
 
 export default function QuizPage() {
@@ -20,12 +30,27 @@ export default function QuizPage() {
     personality: ""
   });
   const [result, setResult] = useState<RecommendationResult | null>(null);
+  const [catData, setCatData] = useState<CatData | null>(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+
+  const { DATABASE_API } = getAPIUrls();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setAnswers(prev => ({ ...prev, [name]: value }));
+  };
+
+  const fetchCatData = async (catName: string) => {
+    try {
+      const response = await fetch(`${DATABASE_API}/get-cat-by-name?cat_name=${encodeURIComponent(catName)}`);
+      const data = await response.json();
+      if (data.success && data.cat) {
+        setCatData(data.cat);
+      }
+    } catch (error) {
+      console.error('Failed to fetch cat data:', error);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -44,6 +69,11 @@ export default function QuizPage() {
       
       setResult(recommendation);
       setMessage('พบแมวที่เหมาะกับคุณแล้ว!');
+      
+      // Fetch cat data for image display
+      if (recommendation.recommended_cat) {
+        await fetchCatData(recommendation.recommended_cat);
+      }
     } catch (error) {
       console.error('Failed to get recommendation:', error);
       setMessage('ไม่สามารถค้นหาแมวได้ กรุณาลองใหม่อีกครั้ง');
@@ -55,6 +85,7 @@ export default function QuizPage() {
   const resetQuiz = () => {
     setAnswers({ location: "", freeTime: "", personality: "" });
     setResult(null);
+    setCatData(null);
     setMessage('');
   };
 
@@ -67,9 +98,11 @@ export default function QuizPage() {
           
           <div className="quiz-content-wrapper">
             
-            <div className="quiz-image-col">
-              <div className="cat-image"><CatImage /></div>
-            </div>
+            {!result && (
+              <div className="quiz-image-col">
+                <div className="cat-image"><CatImage /></div>
+              </div>
+            )}
 
             <div className="quiz-form-col">
               {!result ? (
@@ -119,20 +152,40 @@ export default function QuizPage() {
                 </>
               ) : (
                 <div className="result-section">
-                  <h1>Congratulations! Your Perfect Cat Match!</h1>
+                  <h1>Your Perfect Cat Match!</h1>
                   
                   <div className="result-card">
-                    <div className="cat-breed">
-                      <h2>{result.recommended_cat}</h2>
+                    <div className="cat-info">
+                      <div className="cat-breed">
+                        <h2>{result.recommended_cat}</h2>
+                      </div>
+                      
+                      <div className="match-reason">
+                        <h3>เหตุผลที่เหมาะกับคุณ:</h3>
+                        <p>{result.why_match}</p>
+                      </div>
+                      
+                      <div className="match-id">
+                        <small>Match ID: {result.match_id}</small>
+                      </div>
                     </div>
                     
-                    <div className="match-reason">
-                      <h3>เหตุผลที่เหมาะกับคุณ:</h3>
-                      <p>{result.why_match}</p>
-                    </div>
-                    
-                    <div className="match-id">
-                      <small>Match ID: {result.match_id}</small>
+                    <div className="cat-image-section">
+                      <div className="cat-image-box">
+                        {catData && catData.ImgURL ? (
+                          <img 
+                            src={catData.ImgURL} 
+                            alt={catData.CatName}
+                            onError={(e) => {
+                              e.currentTarget.src = './images/cat_com.png';
+                            }}
+                          />
+                        ) : (
+                          <div className="no-image">
+                            <p>No Image</p>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                   

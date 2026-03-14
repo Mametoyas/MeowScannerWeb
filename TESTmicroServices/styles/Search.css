@@ -101,6 +101,25 @@ body {
     color: var(--orange);
 }
 
+/* ── Admin Icon ── */
+.admin-icon-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.admin-icon {
+    font-size: 2rem;
+    filter: drop-shadow(0 2px 8px var(--shadow));
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.admin-icon-link:hover .admin-icon {
+    transform: rotate(90deg) scale(1.1);
+}
+
 /* ── Search Container ── */
 .search-container {
     display: flex;
@@ -271,6 +290,32 @@ body {
 }
 
 /* ── Cat Personality & Details ── */
+.cat-price {
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.cat-price h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    color: #fff9e6;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+}
+
+.price-value {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 900;
+    font-family: 'Nunito', sans-serif;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .cat-personality, .cat-details {
     margin-bottom: 1rem;
 }
@@ -294,6 +339,13 @@ body {
 }
 
 /* ── Cat Image ── */
+.cat-image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
 .cat-image-box {
     width: 18rem;
     aspect-ratio: 16 / 9;
@@ -301,6 +353,19 @@ body {
     border-radius: 0.75rem;
     overflow: hidden;
     flex-shrink: 0;
+    box-shadow: 0 4px 12px var(--shadow);
+    border: 2px solid white;
+}
+
+.cat-price-below {
+    background: linear-gradient(135deg, var(--orange), #fb923c);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    text-align: center;
     box-shadow: 0 4px 12px var(--shadow);
     border: 2px solid white;
 }

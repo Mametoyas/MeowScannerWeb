@@ -9,7 +9,9 @@ interface CatData {
   CatID: string;
   CatName: string;
   CatPersonal: string;
-  Cat: string;
+  CatDetails: string;
+  Prices?: string;
+  ImgURL?: string;
 }
 
 interface UserData {
@@ -32,12 +34,15 @@ export default function AdminPage() {
   const [isAdding, setIsAdding] = useState(false);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
+  const [DATABASE_API, setDATABASE_API] = useState('');
 
   const [catFormData, setCatFormData] = useState<CatData>({
     CatID: '',
     CatName: '',
     CatPersonal: '',
-    Cat: ''
+    CatDetails: '',
+    Prices: '',
+    ImgURL: ''
   });
 
   const [userFormData, setUserFormData] = useState<UserData & { Password?: string }>({
@@ -49,12 +54,22 @@ export default function AdminPage() {
   });
 
   useEffect(() => {
-    if (activeTab === 'cats') {
-      fetchCats();
-    } else {
-      fetchUsers();
+    const loadAPI = async () => {
+      const { DATABASE_API } = await import('../../config/api').then(m => m.getAPIUrls());
+      setDATABASE_API(DATABASE_API);
+    };
+    loadAPI();
+  }, []);
+
+  useEffect(() => {
+    if (DATABASE_API) {
+      if (activeTab === 'cats') {
+        fetchCats();
+      } else {
+        fetchUsers();
+      }
     }
-  }, [activeTab]);
+  }, [activeTab, DATABASE_API]);
 
   useEffect(() => {
     if (activeTab === 'cats') {
@@ -75,18 +90,19 @@ export default function AdminPage() {
   }, [searchTerm, cats, users, activeTab]);
 
   const fetchUsers = async () => {
+    if (!DATABASE_API) return;
     try {
-      const response = await fetch('http://localhost:5001/get-users');
+      const response = await fetch(`${DATABASE_API}/get-users`);
       const data = await response.json();
       if (response.ok) {
         const currentUser = getUserData();
-        // Filter out current admin user from the list
         const filteredUsers = data.users?.filter((user: UserData) => user.ID !== currentUser?.user_id) || [];
         setUsers(filteredUsers);
       } else {
         setMessage('Failed to fetch user data');
       }
     } catch (error) {
+      console.error('Error fetching users:', error);
       setMessage('Error fetching user data');
     } finally {
       setLoading(false);
@@ -94,8 +110,9 @@ export default function AdminPage() {
   };
 
   const fetchCats = async () => {
+    if (!DATABASE_API) return;
     try {
-      const response = await fetch('http://localhost:5001/get-cats');
+      const response = await fetch(`${DATABASE_API}/get-cats`);
       const data = await response.json();
       if (response.ok) {
         setCats(data.cats || []);
@@ -103,6 +120,7 @@ export default function AdminPage() {
         setMessage('Failed to fetch cat data');
       }
     } catch (error) {
+      console.error('Error fetching cats:', error);
       setMessage('Error fetching cat data');
     } finally {
       setLoading(false);
@@ -133,7 +151,9 @@ export default function AdminPage() {
       CatID: newId,
       CatName: '',
       CatPersonal: '',
-      Cat: ''
+      CatDetails: '',
+      Prices: '',
+      ImgURL: ''
     });
     setIsAdding(true);
     setIsEditing(false);
@@ -169,8 +189,9 @@ export default function AdminPage() {
   };
 
   const handleSaveCat = async () => {
+    if (!DATABASE_API) return;
     try {
-      const url = isAdding ? 'http://localhost:5001/add-cat' : 'http://localhost:5001/update-cat';
+      const url = isAdding ? `${DATABASE_API}/add-cat` : `${DATABASE_API}/update-cat`;
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -188,13 +209,15 @@ export default function AdminPage() {
         setMessage(data.message || 'Operation failed');
       }
     } catch (error) {
+      console.error('Error saving cat:', error);
       setMessage('Error saving cat data');
     }
   };
 
   const handleSaveUser = async () => {
+    if (!DATABASE_API) return;
     try {
-      const url = isAdding ? 'http://localhost:5001/add-user' : 'http://localhost:5001/update-user';
+      const url = isAdding ? `${DATABASE_API}/add-user` : `${DATABASE_API}/update-user`;
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -212,15 +235,17 @@ export default function AdminPage() {
         setMessage(data.message || 'Operation failed');
       }
     } catch (error) {
+      console.error('Error saving user:', error);
       setMessage('Error saving user data');
     }
   };
 
   const handleDeleteUser = async (userId: string) => {
+    if (!DATABASE_API) return;
     if (!confirm('Are you sure you want to delete this user?')) return;
 
     try {
-      const response = await fetch('http://localhost:5001/delete-user', {
+      const response = await fetch(`${DATABASE_API}/delete-user`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -236,15 +261,17 @@ export default function AdminPage() {
         setMessage(data.message || 'Delete failed');
       }
     } catch (error) {
+      console.error('Error deleting user:', error);
       setMessage('Error deleting user');
     }
   };
 
   const handleDeleteCat = async (catId: string) => {
+    if (!DATABASE_API) return;
     if (!confirm('Are you sure you want to delete this cat?')) return;
 
     try {
-      const response = await fetch('http://localhost:5001/delete-cat', {
+      const response = await fetch(`${DATABASE_API}/delete-cat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -260,6 +287,7 @@ export default function AdminPage() {
         setMessage(data.message || 'Delete failed');
       }
     } catch (error) {
+      console.error('Error deleting cat:', error);
       setMessage('Error deleting cat');
     }
   };
@@ -273,7 +301,9 @@ export default function AdminPage() {
       CatID: '',
       CatName: '',
       CatPersonal: '',
-      Cat: ''
+      CatDetails: '',
+      Prices: '',
+      ImgURL: ''
     });
     setUserFormData({
       ID: '',
@@ -426,11 +456,33 @@ export default function AdminPage() {
                     <div className="form-group">
                       <label>Cat Details</label>
                       <textarea
-                        name="Cat"
-                        value={catFormData.Cat}
+                        name="CatDetails"
+                        value={catFormData.CatDetails}
                         onChange={handleCatFormChange}
                         rows={6}
                         required
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Prices (THB)</label>
+                      <input
+                        type="text"
+                        name="Prices"
+                        value={catFormData.Prices || ''}
+                        onChange={handleCatFormChange}
+                        placeholder="e.g. 5,000-15,000"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Image URL</label>
+                      <input
+                        type="text"
+                        name="ImgURL"
+                        value={catFormData.ImgURL || ''}
+                        onChange={handleCatFormChange}
+                        placeholder="https://..."
                       />
                     </div>
                   </>

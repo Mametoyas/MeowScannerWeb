@@ -1,7 +1,10 @@
-# python 3.11
-Flask
-flask_cors
-torch 
-torchvision
-opencv-python
-pillow-heif
+Flask>=2.3.0
+Flask-CORS>=4.0.0
+Pillow>=10.0.0
+numpy>=1.24.0
+opencv-python-headless>=4.8.0
+pillow-heif>=0.13.0
+gunicorn>=21.0.0
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.10.0
+torchvision>=0.19.0

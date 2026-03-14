@@ -11,7 +11,7 @@ export default function AdminNavbar({ searchTerm, onSearchChange, onAddCat }: Ad
   return (
     <nav className="navbar">
       <div className="logo">
-        <img src="/images/logo.png" alt="MeowScanner Logo" />
+        <img src="/images/LOGO.png" alt="MeowScanner Logo" />
       </div>
       
       <div className="nav-links">

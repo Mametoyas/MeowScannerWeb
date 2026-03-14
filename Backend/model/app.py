@@ -1,20 +1,17 @@
+import os
+import gc
 from flask import Flask, jsonify, request
 import torch
 import torch.nn as nn
 from torchvision import transforms
 from torchvision.ops import nms
 import base64
-import cv2
 import io
 import numpy as np
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
-import pillow_heif
 from flask_cors import CORS
 from Model import PretrainedCatDetector
-
-# Register HEIC Opener
-pillow_heif.register_heif_opener()
 
 app = Flask(__name__)
 CORS(app)
@@ -32,20 +29,51 @@ CAT_CLASSES = {
     8: {"id": "C0009", "name": "Toyger"}
 }
 
-# Load custom model
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-num_classes = 9
-model = PretrainedCatDetector(num_classes=num_classes,num_anchors=5)
-model.load_state_dict(torch.load('..\\DenseNet121_CatV3_withCBAMv8.pth', map_location=device))
-model.to(device)
-model.eval()
+print("🚀 Starting Model API Server...")
+print("📦 Loading model at startup...")
 
-# Image preprocessing
+# Load model at startup
+device = torch.device('cpu')  # Force CPU
+num_classes = 9
+model = PretrainedCatDetector(num_classes=num_classes, num_anchors=5)
+
+# Try different model paths
+model_paths = [
+    'DenseNet121_CatV3_withCBAMv8.pth',
+    '../DenseNet121_CatV3_withCBAMv8.pth',
+    '/opt/render/project/src/DenseNet121_CatV3_withCBAMv8.pth'
+]
+
+model_loaded = False
+for model_path in model_paths:
+    try:
+        if os.path.exists(model_path):
+            print(f"📂 Found model at: {model_path}")
+            model.load_state_dict(torch.load(model_path, map_location=device, weights_only=True))
+            model_loaded = True
+            print(f"✅ Model loaded successfully from: {model_path}")
+            break
+    except Exception as e:
+        print(f"❌ Failed to load from {model_path}: {e}")
+        continue
+
+if not model_loaded:
+    print("⚠️ WARNING: Could not load model from any path!")
+else:
+    model.to(device)
+    model.eval()
+    print("✅ Model ready for inference")
+
+# Set transform
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.5121, 0.4615, 0.4059], std=[0.2247, 0.2278, 0.2331])
 ])
+
+# Force garbage collection after loading
+gc.collect()
+print("🎉 Server startup complete!")
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
@@ -181,6 +209,9 @@ def check_health():
 
 @app.route("/predict", methods=["POST"])
 def predict():
+    if not model_loaded:
+        return jsonify({"Error Text": "Model not loaded. Server is starting up."}), 503
+    
     if 'file' not in request.files:
         return jsonify({"Error Text": "ไม่มีไฟล์"}), 400
         
@@ -205,7 +236,11 @@ def predict():
         with torch.no_grad():
             det_out = model(input_tensor)
         
-        pred = det_out[0]  # [A, H, W, 5+C]
+        # Clear input tensor from memory
+        del input_tensor
+        gc.collect()
+        
+        pred = det_out[0]
         pred = pred.reshape(-1, pred.shape[-1])
         obj_probs = torch.sigmoid(pred[..., 4])
         threshold = 0.1
@@ -213,11 +248,11 @@ def predict():
         
         if not mask.any():
             detections = [{"class": "ไม่เจอแมว", "conf": 0.0}]
+            bboxes = []
         else:
             valid_preds = pred[mask]
             valid_obj_probs = obj_probs[mask]
             
-            # Extract boxes
             boxes = []
             for p in valid_preds:
                 cx, cy, bw, bh = p[:4]
@@ -238,14 +273,12 @@ def predict():
                 cls_id = torch.argmax(class_probs)
                 cls_conf = class_probs[cls_id]
                 
-                # Get bounding box coordinates
                 cx, cy, bw, bh = p[:4]
                 x1 = float((cx - bw/2) * 224)
                 y1 = float((cy - bh/2) * 224)
                 x2 = float((cx + bw/2) * 224)
                 y2 = float((cy + bh/2) * 224)
                 
-                # Get cat info from database mapping
                 cat_info = CAT_CLASSES.get(cls_id.item(), {"id": "C0005", "name": "Other"})
                 
                 detections.append({
@@ -261,26 +294,30 @@ def predict():
                     "confidence": float(cls_conf.item())
                 })
         
-        # Convert original image to base64 with bounding boxes drawn
-        img_with_boxes = _draw_bounding_boxes_on_image(image, bboxes if 'bboxes' in locals() else [])
+        # Draw bounding boxes
+        img_with_boxes = _draw_bounding_boxes_on_image(image, bboxes)
         buffered = io.BytesIO()
-        img_with_boxes.save(buffered, format="JPEG")
+        img_with_boxes.save(buffered, format="JPEG", quality=85)
         img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
+        
+        # Clear memory
+        del det_out, pred, image, img_with_boxes, buffered
+        gc.collect()
         
         response_data = {
             "detections": detections,
-            "bboxes": bboxes if 'bboxes' in locals() else [],
+            "bboxes": bboxes,
             "imagedetect": img_str
         }
         
-        # Add GPS location if available
         if gps_location:
             response_data["location"] = gps_location
             
         return jsonify(response_data)
     
     except Exception as e:
+        gc.collect()
         return jsonify({"Error Text": f"เกิดข้อผิดพลาดในการประมวลผล: {str(e)}"}), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(debug=False)

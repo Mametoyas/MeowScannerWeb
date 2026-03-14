@@ -46,7 +46,8 @@ export default function CatMapPage() {
 
   const fetchUserMapData = async (userId: string) => {
     try {
-      const response = await fetch(`http://localhost:5001/get-user-map-locations?user_id=${userId}`)
+      const { DATABASE_API } = await import('../../config/api').then(m => m.getAPIUrls())
+      const response = await fetch(`${DATABASE_API}/get-user-map-locations?user_id=${userId}`)
       const data = await response.json()
       if (response.ok) {
         setLocations(data.locations || [])
@@ -61,7 +62,8 @@ export default function CatMapPage() {
 
   const fetchCatData = async () => {
     try {
-      const response = await fetch('http://localhost:5001/get-cats')
+      const { DATABASE_API } = await import('../../config/api').then(m => m.getAPIUrls())
+      const response = await fetch(`${DATABASE_API}/get-cats`)
       const data = await response.json()
       if (response.ok) {
         setCats(data.cats || [])
@@ -185,7 +187,7 @@ export default function CatMapPage() {
           <div className="header-controls">
             <span className="location-count">{locations.length} locations found</span>
             <button 
-              onClick={() => window.location.href = '/main'} 
+              onClick={() => window.location.href = '/'} 
               className="home-btn"
             >
               Home
@@ -236,12 +238,11 @@ export default function CatMapPage() {
                         </div>
                         <div className="legend-info">
                           <strong>{catName}</strong>
-                          <span className="legend-id">{location.ID}</span>
                           <button 
                             className="view-btn"
                             onClick={() => window.open(`https://www.google.com/maps?q=${location.Latitude},${location.Longitude}`, '_blank')}
                           >
-                            📍 View
+                            View
                           </button>
                         </div>
                       </div>

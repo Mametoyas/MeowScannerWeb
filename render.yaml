@@ -1,0 +1,33 @@
+services:
+  # Database API Service
+  - type: web
+    name: meowscanner-database
+    runtime: python
+    rootDir: Backend/database
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+      - key: GOOGLE_PROJECT_ID
+        sync: false
+      - key: GOOGLE_PRIVATE_KEY_ID
+        sync: false
+      - key: GOOGLE_PRIVATE_KEY
+        sync: false
+      - key: GOOGLE_CLIENT_EMAIL
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_X509_CERT_URL
+        sync: false
+      - key: GOOGLE_SHEET_ID
+        sync: false
+
+  # Model API Service
+  - type: web
+    name: meowscanner-model
+    runtime: python
+    rootDir: Backend/model
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app

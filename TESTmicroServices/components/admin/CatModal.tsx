@@ -9,19 +9,21 @@ interface CatModalProps {
 
 export default function CatModal({ cat, onClose }: CatModalProps) {
   const [formData, setFormData] = useState({
-    name: "",
-    history: "",
-    source: "",
-    image: ""
+    CatID: "",
+    CatName: "",
+    CatPersonal: "",
+    CatDetails: "",
+    ImgURL: ""
   });
 
   useEffect(() => {
     if (cat) {
       setFormData({
-        name: cat.name,
-        history: cat.history,
-        source: cat.source,
-        image: cat.image
+        CatID: cat.CatID,
+        CatName: cat.CatName,
+        CatPersonal: cat.CatPersonal,
+        CatDetails: cat.CatDetails,
+        ImgURL: cat.ImgURL || ""
       });
     }
   }, [cat]);
@@ -33,11 +35,34 @@ export default function CatModal({ cat, onClose }: CatModalProps) {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement save logic
-    console.log("Saving cat data:", formData);
-    onClose();
+    
+    try {
+      const { DATABASE_API } = await import('../../config/api').then(m => m.getAPIUrls());
+      const endpoint = cat ? '/update-cat' : '/add-cat';
+      
+      const response = await fetch(`${DATABASE_API}${endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          CatID: formData.CatID,
+          CatName: formData.CatName,
+          CatPersonal: formData.CatPersonal,
+          Cat: formData.CatDetails
+        })
+      });
+      
+      if (response.ok) {
+        alert(cat ? 'แก้ไขข้อมูลสำเร็จ' : 'เพิ่มข้อมูลสำเร็จ');
+        onClose();
+      } else {
+        alert('เกิดข้อผิดพลาด');
+      }
+    } catch (error) {
+      console.error('Error saving cat:', error);
+      alert('เกิดข้อผิดพลาดในการเชื่อมต่อ');
+    }
   };
 
   return (
@@ -50,21 +75,34 @@ export default function CatModal({ cat, onClose }: CatModalProps) {
         
         <form onSubmit={handleSubmit} className="cat-form">
           <div className="form-group">
+            <label>รหัสแมว:</label>
+            <input
+              type="text"
+              name="CatID"
+              value={formData.CatID}
+              onChange={handleChange}
+              placeholder="C0001"
+              required
+              disabled={!!cat}
+            />
+          </div>
+
+          <div className="form-group">
             <label>ชื่อสายพันธุ์:</label>
             <input
               type="text"
-              name="name"
-              value={formData.name}
+              name="CatName"
+              value={formData.CatName}
               onChange={handleChange}
               required
             />
           </div>
 
           <div className="form-group">
-            <label>ประวัติ:</label>
+            <label>นิสัย/ลักษณะ:</label>
             <textarea
-              name="history"
-              value={formData.history}
+              name="CatPersonal"
+              value={formData.CatPersonal}
               onChange={handleChange}
               rows={4}
               required
@@ -72,10 +110,10 @@ export default function CatModal({ cat, onClose }: CatModalProps) {
           </div>
 
           <div className="form-group">
-            <label>แหล่งอ้างอิง:</label>
+            <label>รายละเอียด:</label>
             <textarea
-              name="source"
-              value={formData.source}
+              name="CatDetails"
+              value={formData.CatDetails}
               onChange={handleChange}
               rows={3}
               required
@@ -86,10 +124,9 @@ export default function CatModal({ cat, onClose }: CatModalProps) {
             <label>URL รูปภาพ:</label>
             <input
               type="text"
-              name="image"
-              value={formData.image}
+              name="ImgURL"
+              value={formData.ImgURL}
               onChange={handleChange}
-              required
             />
           </div>
 

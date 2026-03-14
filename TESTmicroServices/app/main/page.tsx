@@ -29,7 +29,8 @@ export default function MainPage() {
 
   const fetchUserStats = async (userId: string) => {
     try {
-      const response = await fetch(`http://localhost:5001/get-user-stats?user_id=${userId}`)
+      const { DATABASE_API } = await import('../../config/api').then(m => m.getAPIUrls())
+      const response = await fetch(`${DATABASE_API}/get-user-stats?user_id=${userId}`)
       const data = await response.json()
       
       if (response.ok && data.success) {
@@ -50,7 +51,7 @@ export default function MainPage() {
 
   return (
     <ProtectedRoute>
-      <Navbar onLogout={handleLogout} userName={user?.name} />
+      <Navbar onLogout={handleLogout} userName={user?.name} userRole={user?.role} />
       <div className="main-container">
         {/* Main Content */}
         <main className="main-content">
@@ -81,14 +82,6 @@ export default function MainPage() {
               <h3>Cat Map</h3>
               <p>View locations where cats have been spotted and identified</p>
             </Link>
-
-            {user?.role === 'admin' && (
-              <Link href="/admin" className="feature-card admin-card">
-                <div className="card-icon">⚙️</div>
-                <h3>Admin Panel</h3>
-                <p>Manage system data and cat breed information</p>
-              </Link>
-            )}
           </div>
 
           {/* Stats Section */}

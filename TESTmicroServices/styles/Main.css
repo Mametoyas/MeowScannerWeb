@@ -114,6 +114,25 @@ body {
     box-shadow: 0 8px 24px var(--shadow);
 }
 
+/* ── Admin Icon ── */
+.admin-icon-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.admin-icon {
+    font-size: 2rem;
+    filter: drop-shadow(0 2px 8px var(--shadow));
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.admin-icon-link:hover .admin-icon {
+    transform: rotate(90deg) scale(1.1);
+}
+
 /* ── Main Container ── */
 .main-container {
     min-height: calc(100vh - 72px);
@@ -128,7 +147,7 @@ body {
 /* ── Feature Grid ── */
 .feature-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     margin-bottom: 3rem;
 }
